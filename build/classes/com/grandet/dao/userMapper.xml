@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+
+<mapper namespace="com.grandet.dao.userMapper">
+
+    <resultMap id="userRM" type="com.grandet.domain.User" >
+        <id column="user_id" property="id" jdbcType="INTEGER" />
+        <result column="user_username" property="username" jdbcType="VARCHAR" />
+        <result column="user_password" property="password" jdbcType="VARCHAR" />
+        <result column="user_email" property="email" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="getAllUser" resultMap="userRM">
+        SELECT * FROM user
+    </select>
+
+    <select id="getUser" parameterType="int" resultMap="userRM">
+        select * from user where user_id=#{id}
+    </select>
+
+    <select id="getUserByUsernameAndPassword" parameterType="map" resultMap="userRM">
+        SELECT * FROM user WHERE user_username = #{username} AND user_password = #{password}
+    </select>
+
+    <insert id="addUser" parameterType="com.grandet.domain.User">
+        insert into user(user_username, user_password, user_email) values (#{username}, #{password}, #{email})
+    </insert>
+
+</mapper>
