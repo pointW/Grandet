@@ -36,14 +36,6 @@ public class UserService {
         return sqlSession.selectList("getAllUser");
     }
 
-    public int addUser(String username, String password, String email){
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        return sqlSession.insert("addUser", user);
-    }
-
     public int addUser(User user){
         return sqlSession.insert("addUser", user);
     }

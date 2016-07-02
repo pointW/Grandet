@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+
+<mapper namespace="com.grandet.dao.typeMapper">
+
+    <resultMap id="type" type="com.grandet.domain.Type">
+        <id column="type_id" property="id" jdbcType="INTEGER"/>
+        <result column="type_name" property="name" jdbcType="VARCHAR"/>
+        <result column="type_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getAllType" resultMap="type">
+        SELECT * FROM type
+    </select>
+
+    <select id="getType" parameterType="int" resultMap="type">
+        SELECT * FROM type WHERE type_id=#{id}
+    </select>
+
+    <insert id="addType" parameterType="com.grandet.domain.Type">
+        INSERT INTO type(type_name) VALUES (name)
+    </insert>
+
+    <delete id="deleteType" parameterType="int">
+        DELETE * FROM type WHERE type_id = #{id}
+    </delete>
+
+    <update id="updateType" parameterType="com.grandet.domain.Type">
+        UPDATE type SET type_name = #{name} WHERE type_id = #{id}
+    </update>
+
+</mapper>

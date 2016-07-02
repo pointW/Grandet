@@ -12,7 +12,7 @@
         <result column="user_username" property="username" jdbcType="VARCHAR" />
         <result column="user_password" property="password" jdbcType="VARCHAR" />
         <result column="user_email" property="email" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="user_create_time" property="createTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <select id="getAllUser" resultMap="userRM">

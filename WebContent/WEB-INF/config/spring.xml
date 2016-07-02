@@ -54,5 +54,14 @@
     </bean>
     <!-- 开启mvc注解 -->
     <mvc:annotation-driven></mvc:annotation-driven>
+    
+      <!--注解适配器,开启json数据自动转换功能 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+		<list>
+		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+		</list>
+		</property>
+	</bean>
 
 </beans>

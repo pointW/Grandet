@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+
+<mapper namespace="com.grandet.dao.productMapper">
+    <resultMap id="product" type="com.grandet.domain.Product">
+        <id column="product_id" property="id" jdbcType="INTEGER"/>
+        <result column="product_name" property="name" jdbcType="VARCHAR"/>
+        <result column="product_pic" property="pic" jdbcType="VARCHAR"/>
+        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+        <result column="product_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <association property="type" javaType="com.grandet.domain.Type">
+            <id column="type_id" property="id" jdbcType="INTEGER"/>
+            <result column="type_name" property="name" jdbcType="VARCHAR"/>
+            <result column="type_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllProduct" resultMap="product">
+        SELECT * FROM product, type WHERE product.type_id = type.type_id
+    </select>
+
+    <select id="getProduct" parameterType="int" resultMap="product">
+        SELECT * FROM product WHERE product_id = #{id}
+    </select>
+
+    <select id="getProductByName" parameterType="String" resultMap="product">
+        SELECT * FROM product WHERE product_name LIKE concat('%', #{name}, '%')
+    </select>
+
+    <select id="getProductByTypeId" parameterType="int" resultMap="product">
+        SELECT * FROM product WHERE type_id = #{typeId}
+    </select>
+
+    <insert id="addProduct" parameterType="com.grandet.domain.Product">
+        INSERT INTO product(product_id, product_name, product_pic, type_id, create_time)
+        VALUES (#{id}, #{name}, #{pic}, #{typeId}, #{createTime})
+    </insert>
+
+    <delete id="deleteProduct" parameterType="int">
+        DELETE FROM product WHERE product_id = #{id}
+    </delete>
+
+    <update id="updateProduct" parameterType="com.grandet.domain.Product">
+        UPDATE product SET product_name = #{name}, product_pic = #{pic}, type_id = #{typeId}
+        WHERE product_id = #{id}
+    </update>
+
+</mapper>
