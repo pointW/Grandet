@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,9 +27,6 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    private Gson gson = new Gson();
-    private java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 //    200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。
 //    201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。
@@ -46,13 +44,13 @@ public class UserController {
     @RequestMapping(value = "/api/userLogin", method = RequestMethod.POST)
     public
     @ResponseBody
-    String userLogin(@ModelAttribute User user, HttpServletResponse response, HttpSession session) {
+    User userLogin(@ModelAttribute User user, HttpServletResponse response, HttpSession session) {
         User u = userService.userLogin(user.getUsername(), user.getPassword());
         if (u != null) {
             session.setAttribute("user", u);
             session.setMaxInactiveInterval(5*60);
             response.setStatus(200);
-            return gson.toJson(user);
+            return user;
         } else {
             response.setStatus(404);
             return null;
@@ -62,9 +60,16 @@ public class UserController {
     @RequestMapping(value = "/api/user", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getAllUser(HttpServletResponse response) {
-        response.setStatus(200);
-        return gson.toJson(userService.getAllUser());
+    List<User> getAllUser(HttpServletResponse response) {
+        List<User> list = userService.getAllUser();
+        if (list.isEmpty()){
+            response.setStatus(404);
+            return null;
+        }
+        else {
+            response.setStatus(200);
+            return list;
+        }
     }
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
@@ -82,11 +87,11 @@ public class UserController {
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getUser(@PathVariable(value = "id") int id, HttpServletResponse response) {
+    User getUser(@PathVariable(value = "id") int id, HttpServletResponse response) {
         User user = userService.getUser(id);
         if (user != null) {
             response.setStatus(200);
-            return gson.toJson(user);
+            return user;
         } else {
             response.setStatus(404);
             return null;

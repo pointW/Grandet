@@ -46,4 +46,48 @@ public class ProductController {
             return list;
         }
     }
+
+    @RequestMapping(value = "/api/product/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Product getProduct(@PathVariable(value = "id") int id, HttpServletResponse response){
+        Product product = productService.getProduct(id);
+        if (product == null){
+            response.setStatus(404);
+            return null;
+        }
+        else {
+            response.setStatus(200);
+            return product;
+        }
+    }
+
+    @RequestMapping(value = "api/product/typeId", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Product> getProductByTypeId(HttpServletRequest request, HttpServletResponse response){
+        int typeId = Integer.parseInt(request.getParameter("typeId"));
+        List<Product> list = productService.getProductByTypeId(typeId);
+        if (list.isEmpty()){
+            response.setStatus(404);
+            return null;
+        }
+        else {
+            response.setStatus(200);
+            return list;
+        }
+    }
+
+    @RequestMapping(value = "api/product/search", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
+        String keyword = request.getParameter("keyword");
+        List<Product> list = productService.getProduct(keyword);
+        if (list.isEmpty()){
+            response.setStatus(404);
+            return null;
+        }
+        else {
+            response.setStatus(200);
+            return list;
+        }
+    }
 }

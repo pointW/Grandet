@@ -23,4 +23,12 @@ public class ProductService {
     public List<Product> getProduct(){
         return sqlSession.selectList("getAllProduct");
     }
+
+    public List<Product> getProduct(String name){
+        return sqlSession.selectList("getProductByName", name);
+    }
+
+    public List<Product> getProductByTypeId(int typeId){
+        return sqlSession.selectList("getProductByTypeId", typeId);
+    }
 }
