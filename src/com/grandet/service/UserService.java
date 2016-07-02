@@ -43,4 +43,16 @@ public class UserService {
         user.setEmail(email);
         return sqlSession.insert("addUser", user);
     }
+
+    public int addUser(User user){
+        return sqlSession.insert("addUser", user);
+    }
+
+    public int deleteUser(int id){
+        return sqlSession.delete("deleteUser", id);
+    }
+
+    public int updateUser(User user){
+        return sqlSession.update("updateUser", user);
+    }
 }

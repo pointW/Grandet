@@ -31,4 +31,14 @@
         insert into user(user_username, user_password, user_email) values (#{username}, #{password}, #{email})
     </insert>
 
+    <delete id="deleteUser" parameterType="int">
+        DELETE * FROM user where user_id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.grandet.domain.User">
+        UPDATE user
+        SET user_password = #{password}, user_email = #{email}
+        WHERE user_id = #{id}
+    </update>
+
 </mapper>
