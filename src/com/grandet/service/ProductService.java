@@ -1,13 +1,12 @@
 package com.grandet.service;
 
+import com.grandet.domain.Product;
+import com.grandet.util.Util;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.grandet.domain.Type;
-import com.grandet.domain.Product;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +23,26 @@ public class ProductService {
         return sqlSession.selectList("getAllProduct");
     }
 
-    public List<Product> getProduct(String name){
-        return sqlSession.selectList("getProductByName", name);
+    public List<Product> getProduct(String keyword){
+        String jsonString = Util.searchProduct(keyword);
+        List<Integer> idList = Util.jsonToIntList(jsonString);
+        List<Product> productList = new ArrayList<Product>();
+        for (int id : idList){
+            Product product = sqlSession.selectOne("getProduct", id);
+            if (product != null){
+                productList.add(product);
+            }
+            else {
+                Map<String, Object> map = Util.jsonToMap(Util.getProductById(id));
+                Product product1 = new Product();
+                product1.setId(id);
+                product1.setName((String)map.get("name"));
+                product1.setPic((String)map.get("pic"));
+                sqlSession.insert("addProduct", product1);
+                productList.add(product1);
+            }
+        }
+        return productList;
     }
 
     public List<Product> getProductByTypeId(int typeId){

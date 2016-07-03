@@ -233,8 +233,7 @@
         <data-type>int(11)</data-type>
       </column>
       <column id="61" parent="7" name="product_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
+        <data-type>varchar(500)</data-type>
       </column>
       <column id="62" parent="7" name="product_pic">
         <data-type>varchar(200)</data-type>

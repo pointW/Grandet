@@ -1,26 +1,14 @@
 package com.grandet.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
-import com.google.gson.*;
 import com.grandet.domain.User;
 import com.grandet.service.UserService;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -44,7 +32,7 @@ public class UserController {
     @RequestMapping(value = "/api/userLogin", method = RequestMethod.POST)
     public
     @ResponseBody
-    User userLogin(@ModelAttribute User user, HttpServletResponse response, HttpSession session) {
+    User userLogin(User user, HttpServletResponse response, HttpSession session) {
         User u = userService.userLogin(user.getUsername(), user.getPassword());
         if (u != null) {
             session.setAttribute("user", u);
@@ -133,6 +121,13 @@ public class UserController {
             response.setStatus(404);
             return null;
         }
+    }
+
+    @RequestMapping("api/loginFirst")
+    public @ResponseBody
+    String loginFirst(HttpServletResponse response){
+        response.setStatus(401);
+        return null;
     }
 }
 

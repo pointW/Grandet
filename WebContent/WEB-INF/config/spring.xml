@@ -64,4 +64,23 @@
 		</property>
 	</bean>
 
+    <!--<bean id="LoginInterceptor1"-->
+          <!--class="com.grandet.interceptor.LoginInterceptor"/>-->
+
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">-->
+        <!--<property name="interceptors">-->
+            <!--<list>-->
+                <!--<ref bean="LoginInterceptor1"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/comment"/>
+            <mvc:mapping path="/api/collection"/>
+            <bean class="com.grandet.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

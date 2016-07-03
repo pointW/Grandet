@@ -35,9 +35,14 @@
         SELECT * FROM product WHERE type_id = #{typeId}
     </select>
 
+    <!--<insert id="addProduct" parameterType="com.grandet.domain.Product">-->
+        <!--INSERT INTO product(product_id, product_name, product_pic, type_id)-->
+        <!--VALUES (#{id}, #{name}, #{pic}, #{typeId})-->
+    <!--</insert>-->
+
     <insert id="addProduct" parameterType="com.grandet.domain.Product">
-        INSERT INTO product(product_id, product_name, product_pic, type_id, create_time)
-        VALUES (#{id}, #{name}, #{pic}, #{typeId}, #{createTime})
+        INSERT INTO product(product_id, product_name, product_pic)
+        VALUES (#{id}, #{name}, #{pic})
     </insert>
 
     <delete id="deleteProduct" parameterType="int">

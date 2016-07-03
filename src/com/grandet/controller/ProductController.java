@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.grandet.domain.Product;
 import com.grandet.service.ProductService;
+import com.grandet.util.Util;
 import net.sf.json.JSONObject;
 import com.google.gson.*;
 import com.grandet.domain.User;
@@ -30,8 +31,6 @@ import java.util.Map;
 public class ProductController {
     @Autowired
     ProductService productService;
-
-    private java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @RequestMapping(value = "/api/product", method = RequestMethod.GET)
     public @ResponseBody
@@ -80,6 +79,7 @@ public class ProductController {
     public @ResponseBody
     List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
         String keyword = request.getParameter("keyword");
+        System.out.println(Util.searchProduct(keyword));
         List<Product> list = productService.getProduct(keyword);
         if (list.isEmpty()){
             response.setStatus(404);

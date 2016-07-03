@@ -1,14 +1,11 @@
 package com.grandet.service;
 
+import com.grandet.domain.Type;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.grandet.domain.Type;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TypeService {
@@ -35,3 +32,4 @@ public class TypeService {
         return sqlSession.update("updateType", type);
     }
 }
+
