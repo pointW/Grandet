@@ -10,7 +10,6 @@
     <resultMap id="type" type="com.grandet.domain.Type">
         <id column="type_id" property="id" jdbcType="INTEGER"/>
         <result column="type_name" property="name" jdbcType="VARCHAR"/>
-        <result column="type_create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="getAllType" resultMap="type">
@@ -21,8 +20,12 @@
         SELECT * FROM type WHERE type_id=#{id}
     </select>
 
+    <select id="getTypeByName" parameterType="String" resultMap="type">
+        SELECT * FROM type WHERE type_name = #{name}
+    </select>
+
     <insert id="addType" parameterType="com.grandet.domain.Type">
-        INSERT INTO type(type_name) VALUES (name)
+        INSERT INTO type(type_name) VALUES (#{name})
     </insert>
 
     <delete id="deleteType" parameterType="int">

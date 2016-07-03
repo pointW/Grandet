@@ -5,5 +5,9 @@
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
     </data-source>
+    <data-source name="MySQL - grandet@123.206.33.237" uuid="1a2f52cf-3ff2-49d5-8f96-e0f417871107">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+    </data-source>
   </component>
 </project>

@@ -1,6 +1,7 @@
 package com.grandet.service;
 
 import com.grandet.domain.Product;
+import com.grandet.domain.Type;
 import com.grandet.util.Util;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,15 @@ public class ProductService {
                 product1.setId(id);
                 product1.setName((String)map.get("name"));
                 product1.setPic((String)map.get("pic"));
+                String name = (String)map.get("type");
+                Type type = sqlSession.selectOne("getTypeByName", name);
+                if (type == null){
+                    type = new Type();
+                    type.setName(name);
+                    sqlSession.insert("addType", type);
+                    type = sqlSession.selectOne("getTypeByName", name);
+                }
+                product1.setTypeId(type.getId());
                 sqlSession.insert("addProduct", product1);
                 productList.add(product1);
             }

@@ -16,6 +16,10 @@ public class TypeService {
         return sqlSession.selectOne("getType", id);
     }
 
+    public Type getType(String name){
+        return sqlSession.selectOne("getTypeByName", name);
+    }
+
     public List<Type> getType(){
         return sqlSession.selectList("getAllType");
     }

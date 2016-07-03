@@ -7,7 +7,6 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Date createTime;
 
     public int getId() {
         return id;
@@ -39,13 +38,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Date getDatetime() {
-        return createTime;
-    }
-
-    public void setDatetime(Date datetime) {
-        this.createTime = datetime;
     }
 }

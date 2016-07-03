@@ -8,7 +8,6 @@ public class Product {
     private String pic;
     private Type type;
     private int typeId;
-    private Date createTime;
 
     public int getId() {
         return id;
@@ -48,13 +47,5 @@ public class Product {
 
     public void setTypeId(int typeId) {
         this.typeId = typeId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 }
