@@ -22,16 +22,40 @@ public class ProductController {
 
     @RequestMapping(value = "/api/product", method = RequestMethod.GET)
     public @ResponseBody
-    List<Product> getProduct(HttpServletResponse response){
-        List<Product> list = productService.getProduct();
-        if (list.isEmpty()){
-            response.setStatus(404);
+    List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
+        String keyword = request.getParameter("keyword");
+        String page = request.getParameter("page");
+        String typeId = request.getParameter("typeId");
+        List<Product> list = null;
+        //根据关键字搜索
+        if (keyword != null && page !=null){
+            list = productService.getProduct(keyword, Integer.parseInt(page));
+        }
+        //根据类型id搜索
+        else if (typeId != null){
+            list = productService.getProductByTypeId(Integer.parseInt(typeId));
+
+        }
+        //获取全部
+        else if (keyword == null && page == null && typeId == null){
+            list = productService.getProduct();
+        }
+        //其他情况请求有误
+        else {
+            response.setStatus(400);
             return null;
+        }
+
+        if (list == null){
+            response.setStatus(500);
+        }
+        else if (list.isEmpty()){
+            response.setStatus(404);
         }
         else {
             response.setStatus(200);
-            return list;
         }
+        return list;
     }
 
     @RequestMapping(value = "/api/product/{id}", method = RequestMethod.GET)
@@ -45,41 +69,6 @@ public class ProductController {
         else {
             response.setStatus(200);
             return product;
-        }
-    }
-
-    @RequestMapping(value = "api/product/typeId", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Product> getProductByTypeId(HttpServletRequest request, HttpServletResponse response){
-        int typeId = Integer.parseInt(request.getParameter("typeId"));
-        List<Product> list = productService.getProductByTypeId(typeId);
-        if (list.isEmpty()){
-            response.setStatus(404);
-            return null;
-        }
-        else {
-            response.setStatus(200);
-            return list;
-        }
-    }
-
-    @RequestMapping(value = "api/product/search", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
-        String keyword = request.getParameter("keyword");
-        int page = Integer.parseInt(request.getParameter("page"));
-        List<Product> list = productService.getProduct(keyword, page);
-        if (list == null){
-            response.setStatus(500);
-            return null;
-        }
-        else if (list.isEmpty()){
-            response.setStatus(404);
-            return null;
-        }
-        else {
-            response.setStatus(200);
-            return list;
         }
     }
 }

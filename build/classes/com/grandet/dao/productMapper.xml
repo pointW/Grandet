@@ -18,11 +18,13 @@
     </resultMap>
 
     <select id="getAllProduct" resultMap="product">
-        SELECT * FROM product, type WHERE product.type_id = type.type_id
+        SELECT * FROM product, type
+        WHERE product.type_id = type.type_id
     </select>
 
     <select id="getProduct" parameterType="long" resultMap="product">
-        SELECT * FROM product, type WHERE product.type_id = type.type_id AND product_id = #{id}
+        SELECT * FROM product, type
+        WHERE product.type_id = type.type_id AND product_id = #{id}
     </select>
 
     <select id="getProductByName" parameterType="String" resultMap="product">
@@ -32,7 +34,7 @@
 
     <select id="getProductByTypeId" parameterType="int" resultMap="product">
         SELECT * FROM product, type
-        WHERE product.type_id = type.type_id AND type_id = #{typeId}
+        WHERE product.type_id = type.type_id AND product.type_id = #{typeId}
     </select>
 
     <insert id="addProduct" parameterType="com.grandet.domain.Product">

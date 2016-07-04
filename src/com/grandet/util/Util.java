@@ -8,6 +8,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,9 +103,9 @@ public class Util {
 
     public static List<Long> jsonToLongList(String jsonString){
         jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
-        if (jsonString.equals("")){
-            return null;
-        }
+//        if (jsonString.equals("")){
+//            return null;
+//        }
         String[] strings = jsonString.split(",");
         List<Long> result = new ArrayList<Long>();
         for (String s : strings){
@@ -126,6 +127,27 @@ public class Util {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void setResponseStatus(List<Object> list, HttpServletResponse response){
+        if (list == null){
+            response.setStatus(500);
+        }
+        else if (list.isEmpty()){
+            response.setStatus(404);
+        }
+        else {
+            response.setStatus(200);
+        }
+    }
+
+    public static void setResponseStatus(Object object, HttpServletResponse response){
+        if (object == null){
+            response.setStatus(404);
+        }
+        else {
+            response.setStatus(200);
+        }
     }
 }
 
