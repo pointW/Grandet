@@ -13,13 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+
 /**
  * Created by outen on 16/7/3.
  */
 public class Util {
+    private static final String prefix = "http://123.206.33.237:8000";
+//    private final String prefix = "http://127.0.0.1:8000";
     public static String searchProduct(String keyword) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://127.0.0.1:8000/search/"+keyword);
+        HttpGet httpGet = new HttpGet(prefix+"/search/"+keyword);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         // The underlying HTTP connection is still held by the response object
         // to allow the response content to be streamed directly from the network socket.
@@ -44,9 +48,28 @@ public class Util {
         return stream.toString();
     }
 
-    public static String getProductById(int id){
+    public static String searchProduct(String keyword, int page) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://127.0.0.1:8000/attribute/"+id);
+        HttpGet httpGet = new HttpGet(prefix+"/search/"+keyword+"/"+page);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            CloseableHttpResponse response = httpclient.execute(httpGet);
+            System.out.println(response.getStatusLine());
+            HttpEntity entity1 = response.getEntity();
+            // do something useful with the response body
+            // and ensure it is fully consumed
+            entity1.writeTo(stream);
+            EntityUtils.consume(entity1);
+            response.close();
+        } catch (Exception e) {
+
+        }
+        return stream.toString();
+    }
+
+    public static String getProductById(long id){
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(prefix+"/attribute/"+id);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         try {
@@ -72,6 +95,21 @@ public class Util {
         for (String s : strings){
             s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
             result.add(Integer.parseInt(s));
+            System.out.println(s);
+        }
+        return result;
+    }
+
+    public static List<Long> jsonToLongList(String jsonString){
+        jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
+        if (jsonString.equals("")){
+            return null;
+        }
+        String[] strings = jsonString.split(",");
+        List<Long> result = new ArrayList<Long>();
+        for (String s : strings){
+            s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
+            result.add(Long.parseLong(s));
             System.out.println(s);
         }
         return result;

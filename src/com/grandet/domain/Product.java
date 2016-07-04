@@ -3,17 +3,17 @@ package com.grandet.domain;
 import java.util.Date;
 
 public class Product {
-    private int id;
+    private long id;
     private String name;
     private String pic;
     private Type type;
     private int typeId;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

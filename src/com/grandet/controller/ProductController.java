@@ -36,7 +36,7 @@ public class ProductController {
 
     @RequestMapping(value = "/api/product/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Product getProduct(@PathVariable(value = "id") int id, HttpServletResponse response){
+    Product getProduct(@PathVariable(value = "id") long id, HttpServletResponse response){
         Product product = productService.getProduct(id);
         if (product == null){
             response.setStatus(404);
@@ -67,8 +67,8 @@ public class ProductController {
     public @ResponseBody
     List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
         String keyword = request.getParameter("keyword");
-        System.out.println(Util.searchProduct(keyword));
-        List<Product> list = productService.getProduct(keyword);
+        int page = Integer.parseInt(request.getParameter("page"));
+        List<Product> list = productService.getProduct(keyword, page);
         if (list == null){
             response.setStatus(500);
             return null;

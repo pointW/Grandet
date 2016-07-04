@@ -7,7 +7,7 @@
 
 <mapper namespace="com.grandet.dao.productMapper">
     <resultMap id="product" type="com.grandet.domain.Product">
-        <id column="product_id" property="id" jdbcType="INTEGER"/>
+        <id column="product_id" property="id" jdbcType="BIGINT"/>
         <result column="product_name" property="name" jdbcType="VARCHAR"/>
         <result column="product_pic" property="pic" jdbcType="VARCHAR"/>
         <result column="type_id" property="typeId" jdbcType="INTEGER"/>
@@ -21,16 +21,18 @@
         SELECT * FROM product, type WHERE product.type_id = type.type_id
     </select>
 
-    <select id="getProduct" parameterType="int" resultMap="product">
-        SELECT * FROM product WHERE product_id = #{id}
+    <select id="getProduct" parameterType="long" resultMap="product">
+        SELECT * FROM product, type WHERE product.type_id = type.type_id AND product_id = #{id}
     </select>
 
     <select id="getProductByName" parameterType="String" resultMap="product">
-        SELECT * FROM product WHERE product_name LIKE concat('%', #{name}, '%')
+        SELECT * FROM product, type
+        WHERE product.type_id = type.type_id AND product_name LIKE concat('%', #{name}, '%')
     </select>
 
     <select id="getProductByTypeId" parameterType="int" resultMap="product">
-        SELECT * FROM product WHERE type_id = #{typeId}
+        SELECT * FROM product, type
+        WHERE product.type_id = type.type_id AND type_id = #{typeId}
     </select>
 
     <insert id="addProduct" parameterType="com.grandet.domain.Product">
@@ -38,7 +40,7 @@
         VALUES (#{id}, #{name}, #{pic}, #{typeId})
     </insert>
 
-    <delete id="deleteProduct" parameterType="int">
+    <delete id="deleteProduct" parameterType="long">
         DELETE FROM product WHERE product_id = #{id}
     </delete>
 
