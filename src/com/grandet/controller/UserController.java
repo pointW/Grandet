@@ -35,7 +35,7 @@ public class UserController {
     User userLogin(User user, HttpServletResponse response, HttpSession session) {
         User u = userService.userLogin(user.getUsername(), user.getPassword());
         if (u != null) {
-            session.setAttribute("user", u);
+            session.setAttribute("currentUser", u);
             session.setMaxInactiveInterval(5*60);
             response.setStatus(200);
             return u;

@@ -19,7 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         }
 
         //如果用户已经登录 放行
-        if(request.getSession().getAttribute("user") != null) {
+        if(request.getSession().getAttribute("currentUser") != null) {
             System.out.println("已经登录");
             return true;
         }
