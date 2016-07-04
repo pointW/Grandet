@@ -38,7 +38,7 @@ public class UserController {
             session.setAttribute("user", u);
             session.setMaxInactiveInterval(5*60);
             response.setStatus(200);
-            return user;
+            return u;
         } else {
             response.setStatus(404);
             return null;

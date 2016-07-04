@@ -19,7 +19,7 @@ import java.util.Map;
 public class Util {
     public static String searchProduct(String keyword) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://222.209.234.104:8000/search/"+keyword);
+        HttpGet httpGet = new HttpGet("http://127.0.0.1:8000/search/"+keyword);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         // The underlying HTTP connection is still held by the response object
         // to allow the response content to be streamed directly from the network socket.
@@ -46,7 +46,7 @@ public class Util {
 
     public static String getProductById(int id){
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://222.209.234.104:8000/attribute/"+id);
+        HttpGet httpGet = new HttpGet("http://127.0.0.1:8000/attribute/"+id);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         try {
@@ -64,6 +64,9 @@ public class Util {
 
     public static List<Integer> jsonToIntList(String jsonString){
         jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
+        if (jsonString.equals("")){
+            return null;
+        }
         String[] strings = jsonString.split(",");
         List<Integer> result = new ArrayList<Integer>();
         for (String s : strings){

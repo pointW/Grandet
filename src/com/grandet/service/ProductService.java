@@ -27,6 +27,9 @@ public class ProductService {
     public List<Product> getProduct(String keyword){
         String jsonString = Util.searchProduct(keyword);
         List<Integer> idList = Util.jsonToIntList(jsonString);
+        if (idList == null){
+            return null;
+        }
         List<Product> productList = new ArrayList<Product>();
         for (int id : idList){
             Product product = sqlSession.selectOne("getProduct", id);
