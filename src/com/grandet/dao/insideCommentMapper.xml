@@ -9,6 +9,42 @@
     <resultMap id="insideComment" type="com.grandet.domain.InsideComment">
         <id column="ic_id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="ic_detail" property="detail" jdbcType="VARCHAR"/>
+        <result column="ic_date" property="date" jdbcType="TIMESTAMP"/>
+        <association property="user" javaType="com.grandet.domain.User">
+            <id column="user_id" property="id" jdbcType="INTEGER"/>
+            <result column="user_username" property="username" jdbcType="VARCHAR"/>
+            <result column="user_password" property="password" jdbcType="VARCHAR"/>
+            <result column="user_email" property="email" jdbcType="VARCHAR"/>
+        </association>
+        <association property="product" javaType="com.grandet.domain.Product">
+            <id column="product_id" property="id" jdbcType="BIGINT"/>
+            <result column="product_name" property="name" jdbcType="VARCHAR"/>
+            <result column="product_pic" property="pic" jdbcType="VARCHAR"/>
+            <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
+
+    <select id="getInsideCommentByProductId" parameterType="map" resultMap="insideComment">
+        SELECT * FROM inside_comment, user, product
+        WHERE inside_comment.user_id = user.user_id
+        AND inside_comment.product_id = product.product_id
+        AND inside_comment.product_id = #{productId}
+        limit #{index}, 10
+    </select>
+
+    <select id="getInsideCommentByUserId" parameterType="map" resultMap="insideComment">
+        SELECT * FROM inside_comment, user, product
+        WHERE inside_comment.user_id = user.user_id
+        AND inside_comment.product_id = product.product_id
+        AND inside_comment.user_id = #{userId}
+        limit #{index}, 10
+    </select>
+
+    <insert id="addInsideComment" parameterType="com.grandet.domain.InsideComment">
+        INSERT INTO inside_comment(user_id, product_id, ic_detail, ic_date)
+        VALUES (#{userId}, #{productId}, #{detail}, #{date})
+    </insert>
 
 </mapper>

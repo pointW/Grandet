@@ -59,7 +59,6 @@ public class CollectionController {
             map.put("msg", "existed");
         }
         else if (result == -2){
-            response.setStatus(400);
             map.put("msg", "no product");
         }
         else {
