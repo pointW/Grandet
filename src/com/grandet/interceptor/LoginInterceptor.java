@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         //非法请求 即这些请求需要登录后才能访问
         //重定向
-        response.sendRedirect("/api/loginFirst");
+        response.sendRedirect(request.getContextPath()+"/api/loginFirst");
         return false;
     }
 }

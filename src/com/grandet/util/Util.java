@@ -87,12 +87,12 @@ public class Util {
     }
 
     public static List<Integer> jsonToIntList(String jsonString){
+        List<Integer> result = new ArrayList<Integer>();
         jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
         if (jsonString.equals("")){
-            return null;
+            return result;
         }
         String[] strings = jsonString.split(",");
-        List<Integer> result = new ArrayList<Integer>();
         for (String s : strings){
             s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
             result.add(Integer.parseInt(s));
@@ -102,12 +102,12 @@ public class Util {
     }
 
     public static List<Long> jsonToLongList(String jsonString){
-        jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
-//        if (jsonString.equals("")){
-//            return null;
-//        }
-        String[] strings = jsonString.split(",");
         List<Long> result = new ArrayList<Long>();
+        jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
+        if (jsonString.equals("")){
+            return result;
+        }
+        String[] strings = jsonString.split(",");
         for (String s : strings){
             s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
             result.add(Long.parseLong(s));

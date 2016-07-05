@@ -27,6 +27,9 @@ public class CollectionService {
         if (sqlSession.selectOne("getCollectionByUserIdAndProductId", collection)!=null){
             return -1;
         }
+        else if (sqlSession.selectOne("getProduct", collection.getProductId())==null){
+            return -2;
+        }
         return sqlSession.insert("addCollection", collection);
     }
 

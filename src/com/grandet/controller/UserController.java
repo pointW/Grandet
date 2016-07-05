@@ -87,7 +87,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "api/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.PUT)
     public @ResponseBody
     String upDateUser(@PathVariable(value = "id") int id, User user, HttpServletResponse response){
         if (userService.getUser(id)==null){
@@ -110,7 +110,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "api/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
     public
     @ResponseBody
     String deleteUser(@PathVariable(value = "id") int id, HttpServletResponse response) {
@@ -123,7 +123,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("api/loginFirst")
+    @RequestMapping(value = "/api/loginFirst")
     public @ResponseBody
     String loginFirst(HttpServletResponse response){
         response.setStatus(401);

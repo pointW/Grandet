@@ -60,6 +60,10 @@ public class CollectionController {
             response.setStatus(400);
             map.put("msg", "existed");
         }
+        else if (result == -2){
+            response.setStatus(400);
+            map.put("msg", "noproduct");
+        }
         else {
             response.setStatus(500);
             map.put("msg", "error");
