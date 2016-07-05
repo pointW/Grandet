@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TypeController {
@@ -22,26 +24,29 @@ public class TypeController {
     @RequestMapping(value = "/api/type", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Type> getType(HttpServletResponse response) {
+    Map<String, Object> getType() {
+        Map<String, Object> map = new HashMap<String, Object>();
         List<Type> list = typeService.getType();
-        Util.setResponseStatus(list, response);
-        return list;
+        Util.putListToMap(map, list);
+        return map;
     }
 
     @RequestMapping(value = "/api/type/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Type getType(@PathVariable(value = "id") int id, HttpServletResponse response){
+    Map<String, Object> getType(@PathVariable(value = "id") int id){
+        Map<String, Object> map = new HashMap<String, Object>();
         Type type = typeService.getType(id);
-        Util.setResponseStatus(type, response);
-        return type;
+        Util.putObjectToMap(map, type);
+        return map;
     }
 
     @RequestMapping(value = "/api/type/name/{name}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Type getType(@PathVariable(value = "name") String typeName, HttpServletResponse response) {
+    Map<String, Object> getType(@PathVariable(value = "name") String typeName) {
+        Map<String, Object> map = new HashMap<String, Object>();
         Type type = typeService.getType(typeName);
-        Util.setResponseStatus(type, response);
-        return type;
+        Util.putObjectToMap(map, type);
+        return map;
     }
 }

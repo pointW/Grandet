@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -22,7 +24,8 @@ public class ProductController {
 
     @RequestMapping(value = "/api/product", method = RequestMethod.GET)
     public @ResponseBody
-    List<Product> getProduct(HttpServletRequest request, HttpServletResponse response){
+    Map<String, Object> getProduct(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
         String keyword = request.getParameter("keyword");
         String page = request.getParameter("page");
         String typeId = request.getParameter("typeId");
@@ -32,8 +35,8 @@ public class ProductController {
             list = productService.getProduct(keyword, Integer.parseInt(page));
         }
         //根据类型id搜索
-        else if (typeId != null){
-            list = productService.getProductByTypeId(Integer.parseInt(typeId));
+        else if (typeId != null && page != null){
+            list = productService.getProductByTypeId(Integer.parseInt(typeId), Integer.parseInt(page));
 
         }
         //获取全部
@@ -42,33 +45,19 @@ public class ProductController {
         }
         //其他情况请求有误
         else {
-            response.setStatus(400);
-            return null;
+            map.put("msg", "bad request");
+            return map;
         }
-
-        if (list == null){
-            response.setStatus(500);
-        }
-        else if (list.isEmpty()){
-            response.setStatus(404);
-        }
-        else {
-            response.setStatus(200);
-        }
-        return list;
+        Util.putListToMap(map, list);
+        return map;
     }
 
     @RequestMapping(value = "/api/product/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Product getProduct(@PathVariable(value = "id") long id, HttpServletResponse response){
+    Map<String, Object> getProduct(@PathVariable(value = "id") long id){
+        Map<String, Object> map = new HashMap<String, Object>();
         Product product = productService.getProduct(id);
-        if (product == null){
-            response.setStatus(404);
-            return null;
-        }
-        else {
-            response.setStatus(200);
-            return product;
-        }
+        Util.putObjectToMap(map, product);
+        return map;
     }
 }

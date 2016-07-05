@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,8 +95,14 @@ public class ProductService {
         return productList;
     }
 
+//    public List<Product> getProductByTypeId(int typeId){
+//        return sqlSession.selectList("getProductByTypeId", typeId);
+//    }
 
-    public List<Product> getProductByTypeId(long typeId){
-        return sqlSession.selectList("getProductByTypeId", typeId);
+    public List<Product> getProductByTypeId(int typeId, int page){
+        Map<String, Object> map = new HashMap<>();
+        map.put("typeId", typeId);
+        map.put("index", (page-1)*30);
+        return sqlSession.selectList("getProductByTypeId", map);
     }
 }

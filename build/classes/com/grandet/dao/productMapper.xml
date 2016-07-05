@@ -32,9 +32,15 @@
         WHERE product.type_id = type.type_id AND product_name LIKE concat('%', #{name}, '%')
     </select>
 
-    <select id="getProductByTypeId" parameterType="int" resultMap="product">
+    <!--<select id="getProductByTypeId" parameterType="int" resultMap="product">-->
+        <!--SELECT * FROM product, type-->
+        <!--WHERE product.type_id = type.type_id AND product.type_id = #{typeId}-->
+    <!--</select>-->
+
+    <select id="getProductByTypeId" parameterType="map" resultMap="product">
         SELECT * FROM product, type
         WHERE product.type_id = type.type_id AND product.type_id = #{typeId}
+        limit #{index}, 30
     </select>
 
     <insert id="addProduct" parameterType="com.grandet.domain.Product">

@@ -2,13 +2,16 @@ package com.grandet.controller;
 
 import com.grandet.domain.User;
 import com.grandet.service.UserService;
+import com.grandet.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -29,105 +32,90 @@ public class UserController {
 //    422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。
 //    500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。
 
+
     @RequestMapping(value = "/api/userLogin", method = RequestMethod.POST)
     public
     @ResponseBody
-    User userLogin(User user, HttpServletResponse response, HttpSession session) {
+    Map<String, Object> userLogin(User user, HttpSession session) {
+        Map<String, Object> map = new HashMap<String, Object>();
         User u = userService.userLogin(user.getUsername(), user.getPassword());
         if (u != null) {
             session.setAttribute("currentUser", u);
             session.setMaxInactiveInterval(5*60);
-            response.setStatus(200);
-            return u;
+            map.put("msg", "success");
+            map.put("object", u);
         } else {
-            response.setStatus(404);
-            return null;
+            map.put("msg", "fail");
         }
+        return map;
     }
+
 
     @RequestMapping(value = "/api/user", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<User> getAllUser(HttpServletResponse response) {
+    Map<String, Object> getAllUser() {
+        Map<String, Object> map = new HashMap<String, Object>();
         List<User> list = userService.getAllUser();
-        if (list.isEmpty()){
-            response.setStatus(404);
-            return null;
-        }
-        else {
-            response.setStatus(200);
-            return list;
-        }
+        Util.putListToMap(map, list);
+        return map;
     }
+
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
     public
     @ResponseBody
-    String addUser(User user, HttpServletResponse response) {
-        if (userService.addUser(user) == 1) {
-            response.setStatus(201);
-        } else {
-            response.setStatus(400);
+    Map<String, Object> addUser(User user) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (userService.addUser(user) == -1){
+            map.put("msg", "existed");
         }
-        return null;
+        if (userService.addUser(user) == 1) {
+            map.put("msg", "success");
+        } else {
+            map.put("msg", "fail");
+        }
+        return map;
     }
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    User getUser(@PathVariable(value = "id") int id, HttpServletResponse response) {
+    Map<String, Object> getUser(@PathVariable(value = "id") int id) {
+        Map<String, Object> map = new HashMap<String, Object>();
         User user = userService.getUser(id);
-        if (user != null) {
-            response.setStatus(200);
-            return user;
-        } else {
-            response.setStatus(404);
-            return null;
-        }
+        Util.putObjectToMap(map, user);
+        return map;
     }
 
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.PUT)
     public @ResponseBody
-    String upDateUser(@PathVariable(value = "id") int id, User user, HttpServletResponse response){
+    Map<String, Object> upDateUser(@PathVariable(value = "id") int id, User user){
+        Map<String, Object> map = new HashMap<String, Object>();
         if (userService.getUser(id)==null){
-            response.setStatus(404);
-            return null;
+            map.put("msg", "no result");
         }
         else if (userService.getUser(id).getUsername()!=user.getUsername()){
-            response.setStatus(400);
-            return null;
+            map.put("msg", "bad username");
         }
         else {
-            if (userService.updateUser(user) == 1){
-                response.setStatus(201);
-                return null;
-            }
-            else {
-                response.setStatus(400);
-                return null;
+            if (userService.updateUser(user) == 1) {
+                map.put("msg", "success");
+            } else {
+                map.put("msg", "fail");
             }
         }
+        return map;
     }
 
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
-    public
-    @ResponseBody
-    String deleteUser(@PathVariable(value = "id") int id, HttpServletResponse response) {
-        if (userService.deleteUser(id) == 1) {
-            response.setStatus(204);
-            return null;
-        } else {
-            response.setStatus(404);
-            return null;
-        }
-    }
 
     @RequestMapping(value = "/api/loginFirst")
     public @ResponseBody
-    String loginFirst(HttpServletResponse response){
-        response.setStatus(401);
-        return null;
+    Map<String, Object> loginFirst(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("msg", "no login");
+        return map;
     }
 }
 

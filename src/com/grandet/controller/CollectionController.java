@@ -27,18 +27,19 @@ public class CollectionController {
 
     @RequestMapping(value = "/api/collection", method = RequestMethod.GET)
     public @ResponseBody
-    List<Collection> getCollection(HttpServletRequest request, HttpServletResponse response){
+    Map<String, Object> getCollection(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
         String userId = request.getParameter("userId");
         List<Collection> list = null;
         if (userId != null){
             list = collectionService.getCollection(Integer.parseInt(userId));
         }
         else {
-            response.setStatus(400);
-            return null;
+            map.put("msg", "bad request");
+            return map;
         }
-        Util.setResponseStatus(list, response);
-        return list;
+        Util.putListToMap(map, list);
+        return map;
     }
 
     @RequestMapping(value = "/api/collection", method = RequestMethod.POST)
@@ -47,25 +48,21 @@ public class CollectionController {
         User user = (User)request.getSession().getAttribute("currentUser");
         Map<String, String > map = new HashMap<String, String>();
         if (user.getId()!=collection.getUserId()){
-            response.setStatus(400);
             map.put("msg", "not match");
             return map;
         }
         int result = collectionService.addCollection(collection);
         if (result == 1){
-            response.setStatus(201);
-            map.put("msg", "created");
+            map.put("msg", "success");
         }
         else if (result == -1){
-            response.setStatus(400);
             map.put("msg", "existed");
         }
         else if (result == -2){
             response.setStatus(400);
-            map.put("msg", "noproduct");
+            map.put("msg", "no product");
         }
         else {
-            response.setStatus(500);
             map.put("msg", "error");
         }
         return map;

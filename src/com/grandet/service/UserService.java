@@ -37,6 +37,9 @@ public class UserService {
     }
 
     public int addUser(User user){
+        if (sqlSession.selectOne("getUser", user.getUsername())!=null){
+            return -1;
+        }
         return sqlSession.insert("addUser", user);
     }
 

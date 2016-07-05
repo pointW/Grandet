@@ -149,5 +149,28 @@ public class Util {
             response.setStatus(200);
         }
     }
+
+    public static void putListToMap(Map<String, Object> map, List list){
+        if (list == null){
+            map.put("msg", "error");
+        }
+        else if (list.isEmpty()){
+            map.put("msg", "no result");
+        }
+        else {
+            map.put("msg", "success");
+        }
+        map.put("list", list);
+    }
+
+    public static void putObjectToMap(Map<String, Object> map, Object object){
+        if (object == null){
+            map.put("msg", "no result");
+        }
+        else {
+            map.put("msg", "success");
+        }
+        map.put("object", object);
+    }
 }
 
