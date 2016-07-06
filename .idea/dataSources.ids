@@ -1,441 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - Grandet@localhost" uuid="f780daa0-1596-4bf7-a593-facc18ef2ec8">
-    <database-info product="MySQL" version="5.7.13" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
-    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
-      <schema id="1" name="Grandet"/>
-      <table id="2" parent="1" name="attribute"/>
-      <table id="3" parent="1" name="collection"/>
-      <table id="4" parent="1" name="inside_comment"/>
-      <table id="5" parent="1" name="outside_comment"/>
-      <table id="6" parent="1" name="price"/>
-      <table id="7" parent="1" name="product"/>
-      <table id="8" parent="1" name="product_attr"/>
-      <table id="9" parent="1" name="product_website"/>
-      <table id="10" parent="1" name="type"/>
-      <table id="11" parent="1" name="user"/>
-      <table id="12" parent="1" name="website"/>
-      <column id="13" parent="2" name="attribute_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="14" parent="2" name="attribute_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="15" parent="2" name="attribute_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <key id="16" parent="2" name="PRIMARY">
-        <columns>attribute_id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="17" parent="3" name="collection_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="18" parent="3" name="user_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="19" parent="3" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="20" parent="3" name="collection_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="21" parent="3" name="fk_collection_product1_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="22" parent="3" name="fk_collection_user1_idx">
-        <columns>user_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="23" parent="3" name="PRIMARY">
-        <columns>collection_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="24" parent="3" name="fk_collection_product1">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="25" parent="3" name="fk_collection_user1">
-        <columns>user_id</columns>
-        <ref-key>~.user.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="26" parent="4" name="ic_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="27" parent="4" name="user_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="28" parent="4" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="29" parent="4" name="ic_detail">
-        <mandatory>1</mandatory>
-        <data-type>varchar(20000)</data-type>
-      </column>
-      <column id="30" parent="4" name="ic_date">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="31" parent="4" name="ic_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="32" parent="4" name="fk_inside_comment_info_product1_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="33" parent="4" name="fk_inside_comment_info_user1_idx">
-        <columns>user_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="34" parent="4" name="PRIMARY">
-        <columns>ic_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="35" parent="4" name="fk_inside_comment_info_product1">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="36" parent="4" name="fk_inside_comment_info_user1">
-        <columns>user_id</columns>
-        <ref-key>~.user.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="37" parent="5" name="oc_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="38" parent="5" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="39" parent="5" name="oc_detail">
-        <mandatory>1</mandatory>
-        <data-type>varchar(20000)</data-type>
-      </column>
-      <column id="40" parent="5" name="oc_date">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="41" parent="5" name="website_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="42" parent="5" name="oc_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <column id="43" parent="5" name="oc_score">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <index id="44" parent="5" name="fk_comment_info_website1_idx">
-        <columns>website_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="45" parent="5" name="fk_comment_product_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="46" parent="5" name="PRIMARY">
-        <columns>oc_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="47" parent="5" name="fk_comment_info_website1">
-        <columns>website_id</columns>
-        <ref-key>~.website.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="48" parent="5" name="fk_comment_product">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="49" parent="6" name="price_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="50" parent="6" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="51" parent="6" name="price_date">
-        <mandatory>1</mandatory>
-        <data-type>date</data-type>
-      </column>
-      <column id="52" parent="6" name="price_number">
-        <mandatory>1</mandatory>
-        <data-type>double</data-type>
-      </column>
-      <column id="53" parent="6" name="website_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="54" parent="6" name="price_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="55" parent="6" name="fk_price_info_website1_idx">
-        <columns>website_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="56" parent="6" name="fk_price_product1_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="57" parent="6" name="PRIMARY">
-        <columns>price_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="58" parent="6" name="fk_price_info_website1">
-        <columns>website_id</columns>
-        <ref-key>~.website.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="59" parent="6" name="fk_price_product1">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="60" parent="7" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="61" parent="7" name="product_name">
-        <data-type>varchar(500)</data-type>
-      </column>
-      <column id="62" parent="7" name="product_pic">
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="63" parent="7" name="type_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="64" parent="7" name="product_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="65" parent="7" name="fk_product_type1_idx">
-        <columns>type_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="66" parent="7" name="PRIMARY">
-        <columns>product_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="67" parent="7" name="fk_product_type1">
-        <columns>type_id</columns>
-        <ref-key>~.type.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="68" parent="8" name="pa_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="69" parent="8" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="70" parent="8" name="attribute_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="71" parent="8" name="pa_value">
-        <mandatory>1</mandatory>
-        <data-type>double</data-type>
-      </column>
-      <column id="72" parent="8" name="pa_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="73" parent="8" name="fk_product_attr_attribute1_idx">
-        <columns>attribute_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="74" parent="8" name="fk_product_attr_product1_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="75" parent="8" name="PRIMARY">
-        <columns>pa_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="76" parent="8" name="fk_product_attr_attribute1">
-        <columns>attribute_id</columns>
-        <ref-key>~.attribute.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="77" parent="8" name="fk_product_attr_product1">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="78" parent="9" name="pw_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="79" parent="9" name="product_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="80" parent="9" name="website_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="81" parent="9" name="pw_url">
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="82" parent="9" name="pw_service">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="83" parent="9" name="pw_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="84" parent="9" name="fk_product_website_product1_idx">
-        <columns>product_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="85" parent="9" name="fk_product_website_website1_idx">
-        <columns>website_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="86" parent="9" name="PRIMARY">
-        <columns>pw_id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="87" parent="9" name="fk_product_website_product1">
-        <columns>product_id</columns>
-        <ref-key>~.product.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="88" parent="9" name="fk_product_website_website1">
-        <columns>website_id</columns>
-        <ref-key>~.website.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="89" parent="10" name="type_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="90" parent="10" name="type_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="91" parent="10" name="type_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="92" parent="10" name="type_name">
-        <columns>type_name</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="93" parent="10" name="PRIMARY">
-        <columns>type_id</columns>
-        <primary>1</primary>
-      </key>
-      <key id="94" parent="10" name="type_name">
-        <columns>type_name</columns>
-        <underlying-index>type_name</underlying-index>
-      </key>
-      <column id="95" parent="11" name="user_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="96" parent="11" name="user_username">
-        <mandatory>1</mandatory>
-        <data-type>varchar(16)</data-type>
-      </column>
-      <column id="97" parent="11" name="user_password">
-        <mandatory>1</mandatory>
-        <data-type>varchar(32)</data-type>
-      </column>
-      <column id="98" parent="11" name="user_email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="99" parent="11" name="user_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <index id="100" parent="11" name="user_username">
-        <columns>user_username</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="101" parent="11" name="PRIMARY">
-        <columns>user_id</columns>
-        <primary>1</primary>
-      </key>
-      <key id="102" parent="11" name="user_username">
-        <columns>user_username</columns>
-        <underlying-index>user_username</underlying-index>
-      </key>
-      <column id="103" parent="12" name="website_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="104" parent="12" name="website_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="105" parent="12" name="website_pic">
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="106" parent="12" name="website_create_time">
-        <data-type>datetime</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <key id="107" parent="12" name="PRIMARY">
-        <columns>website_id</columns>
-        <primary>1</primary>
-      </key>
-    </database-model>
-  </data-source>
   <data-source name="MySQL - Grandet@123.206.33.237" uuid="1a2f52cf-3ff2-49d5-8f96-e0f417871107">
     <database-info product="MySQL" version="5.5.49-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
@@ -765,6 +329,372 @@
         <data-type>varchar(500)</data-type>
       </column>
       <key id="82" parent="11" name="PRIMARY">
+        <columns>website_id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+  <data-source name="MySQL - Grandet@localhost" uuid="fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9">
+    <database-info product="MySQL" version="5.7.13" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="Grandet"/>
+      <table id="2" parent="1" name="attribute"/>
+      <table id="3" parent="1" name="click"/>
+      <table id="4" parent="1" name="collection"/>
+      <table id="5" parent="1" name="inside_comment"/>
+      <table id="6" parent="1" name="price"/>
+      <table id="7" parent="1" name="product"/>
+      <table id="8" parent="1" name="product_attr"/>
+      <table id="9" parent="1" name="product_website"/>
+      <table id="10" parent="1" name="type"/>
+      <table id="11" parent="1" name="user"/>
+      <table id="12" parent="1" name="website"/>
+      <column id="13" parent="2" name="attribute_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="14" parent="2" name="attribute_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <key id="15" parent="2" name="PRIMARY">
+        <columns>attribute_id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="16" parent="3" name="click_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="17" parent="3" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="18" parent="3" name="click_date">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="19" parent="3" name="click_times">
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;1&apos;</default-expression>
+      </column>
+      <index id="20" parent="3" name="fk_click_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="21" parent="3" name="PRIMARY">
+        <columns>click_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="22" parent="3" name="fk_click_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="23" parent="4" name="collection_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="24" parent="4" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="25" parent="4" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <index id="26" parent="4" name="fk_collection_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="27" parent="4" name="fk_collection_user1_idx">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="28" parent="4" name="PRIMARY">
+        <columns>collection_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="29" parent="4" name="fk_collection_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="30" parent="4" name="fk_collection_user1">
+        <columns>user_id</columns>
+        <ref-key>~.user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="31" parent="5" name="ic_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="32" parent="5" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="33" parent="5" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="34" parent="5" name="ic_detail">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20000)</data-type>
+      </column>
+      <column id="35" parent="5" name="ic_date">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <index id="36" parent="5" name="fk_inside_comment_info_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="37" parent="5" name="fk_inside_comment_info_user1_idx">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="38" parent="5" name="PRIMARY">
+        <columns>ic_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="39" parent="5" name="fk_inside_comment_info_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="40" parent="5" name="fk_inside_comment_info_user1">
+        <columns>user_id</columns>
+        <ref-key>~.user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="41" parent="6" name="price_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="42" parent="6" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="43" parent="6" name="price_date">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="44" parent="6" name="price_number">
+        <mandatory>1</mandatory>
+        <data-type>double</data-type>
+      </column>
+      <column id="45" parent="6" name="website_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="46" parent="6" name="fk_price_info_website1_idx">
+        <columns>website_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="47" parent="6" name="fk_price_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="48" parent="6" name="PRIMARY">
+        <columns>price_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="49" parent="6" name="fk_price_info_website1">
+        <columns>website_id</columns>
+        <ref-key>~.website.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="50" parent="6" name="fk_price_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="51" parent="7" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="52" parent="7" name="product_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="53" parent="7" name="product_pic">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="54" parent="7" name="type_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="55" parent="7" name="fk_product_type1_idx">
+        <columns>type_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="56" parent="7" name="PRIMARY">
+        <columns>product_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="57" parent="7" name="fk_product_type1">
+        <columns>type_id</columns>
+        <ref-key>~.type.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="58" parent="8" name="pa_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="59" parent="8" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="60" parent="8" name="attribute_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="61" parent="8" name="pa_value">
+        <mandatory>1</mandatory>
+        <data-type>double</data-type>
+      </column>
+      <index id="62" parent="8" name="fk_product_attr_attribute1_idx">
+        <columns>attribute_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="63" parent="8" name="fk_product_attr_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="64" parent="8" name="PRIMARY">
+        <columns>pa_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="65" parent="8" name="fk_product_attr_attribute1">
+        <columns>attribute_id</columns>
+        <ref-key>~.attribute.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="66" parent="8" name="fk_product_attr_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="67" parent="9" name="pw_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="68" parent="9" name="product_id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="69" parent="9" name="website_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="70" parent="9" name="pw_url">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="71" parent="9" name="pw_service">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="72" parent="9" name="fk_product_website_product1_idx">
+        <columns>product_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="73" parent="9" name="fk_product_website_website1_idx">
+        <columns>website_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="74" parent="9" name="PRIMARY">
+        <columns>pw_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="75" parent="9" name="fk_product_website_product1">
+        <columns>product_id</columns>
+        <ref-key>~.product.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="76" parent="9" name="fk_product_website_website1">
+        <columns>website_id</columns>
+        <ref-key>~.website.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="77" parent="10" name="type_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="78" parent="10" name="type_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <key id="79" parent="10" name="PRIMARY">
+        <columns>type_id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="80" parent="11" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="81" parent="11" name="user_username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(16)</data-type>
+      </column>
+      <column id="82" parent="11" name="user_password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(32)</data-type>
+      </column>
+      <column id="83" parent="11" name="user_email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(320)</data-type>
+      </column>
+      <index id="84" parent="11" name="user_username_UNIQUE">
+        <columns>user_username</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="85" parent="11" name="PRIMARY">
+        <columns>user_id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="86" parent="11" name="user_username_UNIQUE">
+        <columns>user_username</columns>
+        <underlying-index>user_username_UNIQUE</underlying-index>
+      </key>
+      <column id="87" parent="12" name="website_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="88" parent="12" name="website_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="89" parent="12" name="website_pic">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <key id="90" parent="12" name="PRIMARY">
         <columns>website_id</columns>
         <primary>1</primary>
       </key>

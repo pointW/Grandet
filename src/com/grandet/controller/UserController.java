@@ -67,12 +67,14 @@ public class UserController {
     @ResponseBody
     Map<String, Object> addUser(User user) {
         Map<String, Object> map = new HashMap<String, Object>();
-        if (userService.addUser(user) == -1){
+        int result = userService.addUser(user);
+        if (result == -1){
             map.put("msg", "existed");
         }
-        if (userService.addUser(user) == 1) {
+        else if (result == 1) {
             map.put("msg", "success");
-        } else {
+        }
+        else {
             map.put("msg", "fail");
         }
         return map;
@@ -96,10 +98,11 @@ public class UserController {
         if (userService.getUser(id)==null){
             map.put("msg", "no result");
         }
-        else if (userService.getUser(id).getUsername()!=user.getUsername()){
-            map.put("msg", "bad username");
-        }
+//        else if (userService.getUser(id).getUsername()!=user.getUsername()){
+//            map.put("msg", "bad username");
+//        }
         else {
+            user.setId(id);
             if (userService.updateUser(user) == 1) {
                 map.put("msg", "success");
             } else {
