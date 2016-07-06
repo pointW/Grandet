@@ -17,7 +17,15 @@ public class ProductService {
     @Autowired
     private SqlSession sqlSession;
 
+    public void updateClick(long productId){
+        if (sqlSession.selectOne("getClickTodayByProductId", productId) == null){
+            sqlSession.insert("addClick", productId);
+        }
+        sqlSession.update("updateClick", productId);
+    }
+
     public Product getProduct(long id){
+        updateClick(id);
         return sqlSession.selectOne("getProduct", id);
     }
 

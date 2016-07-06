@@ -39,4 +39,11 @@ public class ClickService {
         }
         return productList;
     }
+
+    public void updateClick(long productId){
+        if (sqlSession.selectOne("getClickTodayByProductId", productId)){
+            sqlSession.insert("addClick", productId);
+        }
+        sqlSession.update("updateClick", productId);
+    }
 }

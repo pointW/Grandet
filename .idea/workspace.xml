@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1e608876-fc5c-4308-b388-da534d012fdb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/com/grandet/controller/UserController.class" afterPath="$PROJECT_DIR$/build/classes/com/grandet/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/grandet/controller/UserController.java" afterPath="$PROJECT_DIR$/src/com/grandet/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/grandet/dao/clickMapper.xml" afterPath="$PROJECT_DIR$/src/com/grandet/dao/clickMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/grandet/service/ClickService.java" afterPath="$PROJECT_DIR$/src/com/grandet/service/ClickService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/grandet/service/ProductService.java" afterPath="$PROJECT_DIR$/src/com/grandet/service/ProductService.java" />
     </list>
     <ignored path="Grandet.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,20 +56,86 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Click.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Click.java">
+      <file leaf-file-name="ClickService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ClickService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+            <state relative-caret-position="378">
+              <caret line="47" column="5" selection-start-line="42" selection-start-column="4" selection-end-line="47" selection-end-column="5" />
               <folding>
-                <element signature="e#691#692#0" expanded="true" />
-                <element signature="e#725#726#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grandet.click" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ProductController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/controller/ProductController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="366">
+              <caret line="38" column="100" selection-start-line="38" selection-start-column="100" selection-end-line="38" selection-end-column="100" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#970#986#0" expanded="true" />
+                <element signature="e#2065#2081#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Collection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Collection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="28" selection-start-line="6" selection-start-column="3" selection-end-line="10" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Product.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Product.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CollectionService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/service/CollectionService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InsideCommentService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/service/InsideCommentService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="363">
+              <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ProductService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="20" column="79" selection-start-line="20" selection-start-column="79" selection-end-line="20" selection-end-column="79" />
+              <folding>
+                <element signature="e#888#889#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Grandet.click" pinned="false" current-in-tab="true">
         <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.click">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
@@ -85,28 +150,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="productMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/productMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="8" column="26" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="26" />
-              <folding>
-                <marker date="1467703950000" expanded="true" signature="1050:1071" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="1050:1122" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="1216:1311" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="1413:1533" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="1645:1756" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="1867:1998" ph="SELECT * FRO... product" />
-                <marker date="1467703950000" expanded="true" signature="2094:2212" ph="INSERT INTO product... " />
-                <marker date="1467703950000" expanded="true" signature="2289:2333" ph="DELETE FROM " />
-                <marker date="1467703950000" expanded="true" signature="2432:2549" ph="UPDATE produ... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Grandet.attribute" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.attribute">
+      <file leaf-file-name="Grandet.product" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.product">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -116,66 +161,6 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clickMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/clickMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-              <folding>
-                <marker date="1467776791000" expanded="true" signature="835:886" ph="SELECT * FRO... click" />
-                <marker date="1467776791000" expanded="true" signature="962:1148" ph="select produ... click" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spring.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/config/spring.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jdbc.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/config/jdbc.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="collectionMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/collectionMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="4" />
-              <folding>
-                <marker date="1467633324000" expanded="true" signature="1859:2165" ph="SELECT * FRO... collection" />
-                <marker date="1467633324000" expanded="true" signature="2310:2705" ph="SELECT * FRO... collection" />
-                <marker date="1467633324000" expanded="true" signature="2807:2883" ph="INSERT INTO collection... " />
-                <marker date="1467633324000" expanded="true" signature="2962:3012" ph="DELETE FROM " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClickService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ClickService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -236,7 +221,6 @@
         <option value="$PROJECT_DIR$/src/com/grandet/controller/TypeController.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/controller/ProductController.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/dao/productMapper.xml" />
-        <option value="$PROJECT_DIR$/src/com/grandet/service/ProductService.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/dao/insideCommentMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/grandet/service/InsideCommentService.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/controller/CollectionController.java" />
@@ -244,9 +228,10 @@
         <option value="$PROJECT_DIR$/src/com/grandet/domain/Click.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/dao/userMapper.xml" />
-        <option value="$PROJECT_DIR$/src/com/grandet/service/ClickService.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/controller/ClickController.java" />
         <option value="$PROJECT_DIR$/src/com/grandet/dao/clickMapper.xml" />
+        <option value="$PROJECT_DIR$/src/com/grandet/service/ClickService.java" />
+        <option value="$PROJECT_DIR$/src/com/grandet/service/ProductService.java" />
       </list>
     </option>
   </component>
@@ -1063,12 +1048,12 @@
       <updated>1467362230462</updated>
       <workItem from="1467362243437" duration="58426000" />
       <workItem from="1467544833804" duration="53668000" />
-      <workItem from="1467775259237" duration="1462000" />
+      <workItem from="1467775259237" duration="3832000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113556000" />
+    <option name="totallyTimeSpent" value="115926000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="40" y="23" width="1400" height="877" extended-state="6" />
@@ -1119,13 +1104,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/gson-2.7.jar!/com/google/gson/Gson.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="368" column="114" selection-start-line="368" selection-start-column="106" selection-end-line="368" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.product_attr" />
     <entry file="file://$PROJECT_DIR$/src/com/grandet/service/UserServiceImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/com/grandet/filter/SessionFilter.java" />
@@ -1157,17 +1135,6 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.user" />
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Collection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="28" selection-start-line="6" selection-start-column="3" selection-end-line="10" selection-end-column="28" />
-          <folding>
-            <element signature="e#241#242#0" expanded="false" />
-            <element signature="e#266#267#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1199,6 +1166,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#457#458#0" expanded="false" />
+            <element signature="e#523#524#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1241,35 +1212,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/InsideCommentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.outside_comment" />
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/controller/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="38" column="100" selection-start-line="38" selection-start-column="100" selection-end-line="38" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ProductService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="63" column="60" selection-start-line="63" selection-start-column="56" selection-end-line="63" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -1278,18 +1221,6 @@
             <element signature="e#697#698#0" expanded="true" />
             <element signature="e#731#732#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/f7b04066/1a2f52cf-3ff2-49d5-8f96-e0f417871107/Grandet.product">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1335,6 +1266,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,7 +1275,7 @@
         <state relative-caret-position="380">
           <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1373,32 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/userMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
-          <folding>
-            <marker date="1467541740000" expanded="true" signature="818:836" ph="SELECT * FRO... user" />
-            <marker date="1467541740000" expanded="true" signature="925:963" ph="select * fro... user" />
-            <marker date="1467541740000" expanded="true" signature="1073:1157" ph="SELECT * FRO... user" />
-            <marker date="1467541740000" expanded="true" signature="1247:1349" ph="insert into user... " />
-            <marker date="1467541740000" expanded="true" signature="1422:1458" ph="DELETE FROM " />
-            <marker date="1467541740000" expanded="true" signature="1551:1655" ph="UPDATE user " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/CollectionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding>
-            <element signature="e#529#530#0" expanded="false" />
-            <element signature="e#606#607#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.attribute" />
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.collection" />
     <entry file="dbDummy://dbtable:/f7b04066/f780daa0-1596-4bf7-a593-facc18ef2ec8/Grandet.inside_comment" />
@@ -1410,33 +1316,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.product">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.attribute">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.click">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1496,13 +1376,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Click.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+          <folding>
+            <element signature="e#691#692#0" expanded="true" />
+            <element signature="e#725#726#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7b04066/1a2f52cf-3ff2-49d5-8f96-e0f417871107/Grandet.product">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7b04066/1a2f52cf-3ff2-49d5-8f96-e0f417871107/Grandet.click">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/userMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+          <folding>
+            <marker date="1467541740000" expanded="true" signature="818:836" ph="SELECT * FRO... user" />
+            <marker date="1467541740000" expanded="true" signature="925:963" ph="select * fro... user" />
+            <marker date="1467541740000" expanded="true" signature="1073:1157" ph="SELECT * FRO... user" />
+            <marker date="1467541740000" expanded="true" signature="1247:1349" ph="insert into user... " />
+            <marker date="1467541740000" expanded="true" signature="1422:1458" ph="DELETE FROM " />
+            <marker date="1467541740000" expanded="true" signature="1551:1655" ph="UPDATE user " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/grandet/dao/clickMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        <state relative-caret-position="326">
+          <caret line="32" column="24" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="24" />
           <folding>
-            <marker date="1467776791000" expanded="true" signature="835:886" ph="SELECT * FRO... click" />
-            <marker date="1467776791000" expanded="true" signature="962:1148" ph="select produ... click" />
+            <marker date="1467779815000" expanded="true" signature="840:921" ph="SELECT * FRO... click" />
+            <marker date="1467779815000" expanded="true" signature="1022:1073" ph="SELECT * FRO... click" />
+            <marker date="1467779815000" expanded="true" signature="1131:1324" ph="select produ... click" />
+            <marker date="1467779815000" expanded="true" signature="1397:1474" ph="INSERT INTO click... " />
+            <marker date="1467779815000" expanded="true" signature="1549:1641" ph="UPDATE click... " />
           </folding>
         </state>
       </provider>
@@ -1517,24 +1452,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Click.java">
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/controller/ProductController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+        <state relative-caret-position="366">
+          <caret line="38" column="100" selection-start-line="38" selection-start-column="100" selection-end-line="38" selection-end-column="100" />
           <folding>
-            <element signature="e#691#692#0" expanded="true" />
-            <element signature="e#725#726#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#970#986#0" expanded="true" />
+            <element signature="e#2065#2081#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Collection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="28" selection-start-line="6" selection-start-column="3" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/domain/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/InsideCommentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ClickService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        <state relative-caret-position="378">
+          <caret line="47" column="5" selection-start-line="42" selection-start-column="4" selection-end-line="47" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.product">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/CollectionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/grandet/service/ProductService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="20" column="79" selection-start-line="20" selection-start-column="79" selection-end-line="20" selection-end-column="79" />
+          <folding>
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/f7b04066/fc8c34c0-54cd-42ab-a52c-be9d6ae1aff9/Grandet.click">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

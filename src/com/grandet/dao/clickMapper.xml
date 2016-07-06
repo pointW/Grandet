@@ -13,16 +13,30 @@
         <result column="click_times" property="times" jdbcType="INTEGER"/>
     </resultMap>
 
+    <select id="getClickTodayByProductId" parameterType="long" resultMap="click">
+        SELECT * FROM click WHERE product_id = #{productId} AND click_date = CURRENT_DATE
+    </select>
+
     <select id="getClickByProductId" parameterType="long" resultMap="click">
         SELECT * FROM click WHERE product_id = #{productId};
     </select>
 
-    <select id="getMostClicked" resultType="long">
+    <select id="getMostClicked">
         select product_id, sum(click_times)
         from click
-        where 7 >= datediff(now(), click_date)
+        where 7 >= datediff(CURRENT_DATE, click_date)
         group by product_id
         order by sum(click_times) desc
         limit 0,4;
     </select>
+
+    <insert id="addClick" parameterType="long">
+        INSERT INTO click(product_id, click_date) VALUES (#{productId}, CURRENT_DATE)
+    </insert>
+
+    <update id="updateClick" parameterType="long">
+        UPDATE click
+        SET click_times = click_times+1
+        WHERE product_id = #{productId}
+    </update>
 </mapper>
