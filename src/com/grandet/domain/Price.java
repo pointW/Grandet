@@ -14,6 +14,7 @@ public class Price {
     private String url;
     private Product product;
     private Website website;
+    private String name;
 
     public int getId() {
         return id;
@@ -77,5 +78,13 @@ public class Price {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

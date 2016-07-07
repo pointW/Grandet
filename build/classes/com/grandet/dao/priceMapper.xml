@@ -13,6 +13,7 @@
         <result column="price_number" property="number" jdbcType="DOUBLE"/>
         <result column="website_id" property="websiteId" jdbcType="INTEGER"/>
         <result column="price_url" property="url" jdbcType="VARCHAR"/>
+        <result column="price_name" property="name" jdbcType="VARCHAR"/>
         <association property="product" javaType="com.grandet.domain.Product">
             <id column="product_id" property="id" jdbcType="BIGINT"/>
             <result column="product_name" property="name" jdbcType="VARCHAR"/>
@@ -47,7 +48,7 @@
     </select>
 
     <insert id="addPrice" parameterType="com.grandet.domain.Price">
-        INSERT INTO price(product_id, price_date, price_number, website_id, price_url)
-        VALUES (#{productId}, CURRENT_DATE, #{number}, #{websiteId}, #{url})
+        INSERT INTO price(product_id, price_date, price_number, website_id, price_url, price_name)
+        VALUES (#{productId}, CURRENT_DATE, #{number}, #{websiteId}, #{url}, #{name})
     </insert>
 </mapper>

@@ -52,6 +52,7 @@ public class Util {
 
     public static String searchProduct(String keyword, int page) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        keyword = keyword.replace("[", "").replace("]", "").replace(" ", "%20").replace("\\", "/").replace("\"", "");
         HttpGet httpGet = new HttpGet(prefix+"/search/"+keyword+"/"+page);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
@@ -89,7 +90,7 @@ public class Util {
 
     public static String getPrice(String name) throws Exception{
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        name = name.replaceAll(" ", "%20");
+        name = name.replace(" ", "%20").replace("[", "").replace("]", "").replace("\\", "/").replace("\"", "");
         HttpGet httpGet = new HttpGet(prefix+"/prices/"+ name);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         CloseableHttpResponse response = httpClient.execute(httpGet);

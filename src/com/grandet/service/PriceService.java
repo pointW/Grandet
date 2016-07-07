@@ -32,8 +32,9 @@ public class PriceService {
                 for (Map<String, Object> map : mapList) {
                     Price price = new Price();
                     price.setProductId(productId);
-                    price.setNumber(Double.parseDouble((String) map.get("price")));
-                    price.setUrl((String) map.get("link"));
+                    price.setNumber(Double.parseDouble((String)map.get("price")));
+                    price.setUrl((String)map.get("link"));
+                    price.setName((String)map.get("name"));
                     String websiteName = (String) map.get("mall");
                     Website website = sqlSession.selectOne("getWebsiteByName", websiteName);
                     if (website == null) {
@@ -73,6 +74,7 @@ public class PriceService {
                         price.setProductId(productId);
                         price.setNumber(Double.parseDouble((String) map.get("price")));
                         price.setUrl((String) map.get("link"));
+                        price.setName((String)map.get("name"));
                         String websiteName = (String) map.get("mall");
                         Website website = sqlSession.selectOne("getWebsiteByName", websiteName);
                         if (website == null) {
