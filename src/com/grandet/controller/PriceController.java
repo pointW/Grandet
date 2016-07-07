@@ -1,6 +1,7 @@
 package com.grandet.controller;
 
 import com.grandet.domain.Price;
+import com.grandet.domain.PriceVO;
 import com.grandet.service.PriceService;
 import com.grandet.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,25 @@ public class PriceController {
     Map<String, Object> getPrice(HttpServletRequest request){
         Map<String, Object> map = new HashMap<>();
         String productId = request.getParameter("productId");
+        if (productId == null){
+            map.put("msg", "bad request");
+            return map;
+        }
         List<Price> list = priceService.getPriceByProductId(Long.parseLong(productId));
+        Util.putListToMap(map, list);
+        return map;
+    }
+
+    @RequestMapping(value = "/api/price/history", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> getPriceHistory(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<>();
+        String productId = request.getParameter("productId");
+        if (productId == null){
+            map.put("msg", "bad request");
+            return map;
+        }
+        List<PriceVO> list = priceService.getPriceHistoryAvgByProductId(Long.parseLong(productId));
         Util.putListToMap(map, list);
         return map;
     }

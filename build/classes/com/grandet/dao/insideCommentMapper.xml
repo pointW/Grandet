@@ -26,6 +26,13 @@
         </association>
     </resultMap>
 
+    <select id="getInsideComment" parameterType="int" resultMap="insideComment">
+        SELECT * FROM inside_comment, user, product
+        WHERE inside_comment.user_id = user.user_id
+        AND inside_comment.product_id = product.product_id
+        AND inside_comment.is_id = #{id}
+    </select>
+
     <select id="getInsideCommentByProductId" parameterType="map" resultMap="insideComment">
         SELECT * FROM inside_comment, user, product
         WHERE inside_comment.user_id = user.user_id

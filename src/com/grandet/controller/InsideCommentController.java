@@ -67,9 +67,14 @@ public class InsideCommentController {
 
     @RequestMapping(value = "api/comment/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    Map<String, Object> deleteComment(@PathVariable(value = "id") int id){
+    Map<String, Object> deleteComment(@PathVariable(value = "id") int id, HttpServletRequest request){
         Map<String, Object> map = new HashMap<>();
-
+        InsideComment insideComment = insideCommentService.getInsideComment(id);
+//        User user = (User)request.getSession().getAttribute("currentUser");
+//        if (user.getId() != insideComment.getUserId()){
+//            map.put("msg", "not match");
+//            return map;
+//        }
         int result = insideCommentService.deleteInsideComment(id);
         if (result == 1){
             map.put("msg", "success");

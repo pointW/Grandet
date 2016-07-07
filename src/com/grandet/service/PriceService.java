@@ -1,6 +1,7 @@
 package com.grandet.service;
 
 import com.grandet.domain.Price;
+import com.grandet.domain.PriceVO;
 import com.grandet.domain.Product;
 import com.grandet.domain.Website;
 import com.grandet.util.Util;
@@ -51,6 +52,10 @@ public class PriceService {
             }
         }
         return list;
+    }
+
+    public List<PriceVO> getPriceHistoryAvgByProductId(long productId){
+        return sqlSession.selectList("getAllPriceByProductId", productId);
     }
 
     public void updateAllPrice(){

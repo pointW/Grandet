@@ -34,6 +34,18 @@
         AND price.price_date = CURRENT_DATE
     </select>
 
+    <!--<select id="getAllPriceByProductId" parameterType="long" resultMap="price">-->
+        <!--SELECT * FROM price, product, website-->
+        <!--WHERE price.product_id = product.product_id-->
+        <!--AND price.website_id = website.website_id-->
+        <!--AND price.product_id = #{productId}-->
+    <!--</select>-->
+
+    <select id="getAllPriceByProductId" parameterType="long" resultType="com.grandet.domain.PriceVO">
+        select convert(avg(price_number), DECIMAL) as price, price_date as date
+        from price where product_id = #{productId} group by price_date;
+    </select>
+
     <insert id="addPrice" parameterType="com.grandet.domain.Price">
         INSERT INTO price(product_id, price_date, price_number, website_id, price_url)
         VALUES (#{productId}, CURRENT_DATE, #{number}, #{websiteId}, #{url})

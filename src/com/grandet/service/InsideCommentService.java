@@ -25,6 +25,10 @@ public class InsideCommentService {
         return sqlSession.selectList("getInsideCommentByProductId", map);
     }
 
+    public InsideComment getInsideComment(int id){
+        return sqlSession.selectOne("getInsideComment", id);
+    }
+
     public List<InsideComment> getInsideCommentByUserId(int userId, int page){
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
