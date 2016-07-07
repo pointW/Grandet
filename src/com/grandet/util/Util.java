@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,6 +87,20 @@ public class Util {
         return stream.toString();
     }
 
+    public static String getPrice(String name) throws Exception{
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        name = name.replaceAll(" ", "%20");
+        HttpGet httpGet = new HttpGet(prefix+"/prices/"+ name);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+        System.out.println(response.getStatusLine());
+        HttpEntity entity1 = response.getEntity();
+        entity1.writeTo(stream);
+        EntityUtils.consume(entity1);
+        response.close();
+        return stream.toString();
+    }
+
     public static List<Integer> jsonToIntList(String jsonString){
         List<Integer> result = new ArrayList<Integer>();
         jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
@@ -112,6 +127,18 @@ public class Util {
             s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
             result.add(Long.parseLong(s));
             System.out.println(s);
+        }
+        return result;
+    }
+
+    public static List<Map<String, Object>> jsonToMapList(String jsonString){
+        List<Map<String, Object>> result = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            result = mapper.readValue(jsonString, List.class);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return result;
     }

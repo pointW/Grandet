@@ -35,4 +35,8 @@ public class InsideCommentService {
     public int addInsideComment(InsideComment insideComment){
         return sqlSession.insert("addInsideComment", insideComment);
     }
+
+    public int deleteInsideComment(int id){
+        return sqlSession.delete("deleteInsideComment", id);
+    }
 }

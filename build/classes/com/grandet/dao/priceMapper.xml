@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+
+<mapper namespace="com.grandet.dao.priceMapper">
+    <resultMap id="price" type="com.grandet.domain.Price">
+        <id column="price_id" property="id" jdbcType="INTEGER"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="price_date" property="date" jdbcType="TIMESTAMP"/>
+        <result column="price_number" property="number" jdbcType="DOUBLE"/>
+        <result column="website_id" property="websiteId" jdbcType="INTEGER"/>
+        <result column="price_url" property="url" jdbcType="VARCHAR"/>
+        <association property="product" javaType="com.grandet.domain.Product">
+            <id column="product_id" property="id" jdbcType="BIGINT"/>
+            <result column="product_name" property="name" jdbcType="VARCHAR"/>
+            <result column="product_pic" property="pic" jdbcType="VARCHAR"/>
+            <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+        </association>
+        <association property="website" javaType="com.grandet.domain.Website">
+            <id column="website_id" property="id" jdbcType="INTEGER"/>
+            <result column="website_name" property="name" jdbcType="VARCHAR"/>
+            <result column="website_pic" property="pic" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <select id="getPriceTodayByProductId" parameterType="long" resultMap="price">
+        SELECT * FROM price, product, website
+        WHERE price.product_id = product.product_id
+        AND price.website_id = website.website_id
+        AND price.product_id = #{productId}
+        AND price.price_date = CURRENT_DATE
+    </select>
+
+    <insert id="addPrice" parameterType="com.grandet.domain.Price">
+        INSERT INTO price(product_id, price_date, price_number, website_id, price_url)
+        VALUES (#{productId}, CURRENT_DATE, #{number}, #{websiteId}, #{url})
+    </insert>
+</mapper>

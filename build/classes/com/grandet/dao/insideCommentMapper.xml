@@ -47,4 +47,8 @@
         VALUES (#{userId}, #{productId}, #{detail}, #{date})
     </insert>
 
+    <insert id="deleteInsideComment" parameterType="int">
+        DELETE FROM inside_comment WHERE ic_id = #{id}
+    </insert>
+
 </mapper>

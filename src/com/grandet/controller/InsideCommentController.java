@@ -6,6 +6,7 @@ import com.grandet.service.InsideCommentService;
 import com.grandet.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,12 +50,27 @@ public class InsideCommentController {
     Map<String, Object> addComment(InsideComment insideComment, HttpServletRequest request){
         insideComment.setDate(new Date(System.currentTimeMillis()));
         Map<String, Object> map = new HashMap<>();
-        User user = (User)request.getSession().getAttribute("currentUser");
-        if (user.getId() != insideComment.getUserId()){
-            map.put("msg", "not match");
-            return map;
-        }
+//        User user = (User)request.getSession().getAttribute("currentUser");
+//        if (user.getId() != insideComment.getUserId()){
+//            map.put("msg", "not match");
+//            return map;
+//        }
         int result = insideCommentService.addInsideComment(insideComment);
+        if (result == 1){
+            map.put("msg", "success");
+        }
+        else {
+            map.put("msg", "error");
+        }
+        return map;
+    }
+
+    @RequestMapping(value = "api/comment/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Map<String, Object> deleteComment(@PathVariable(value = "id") int id){
+        Map<String, Object> map = new HashMap<>();
+
+        int result = insideCommentService.deleteInsideComment(id);
         if (result == 1){
             map.put("msg", "success");
         }

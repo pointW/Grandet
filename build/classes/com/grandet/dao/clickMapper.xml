@@ -21,7 +21,7 @@
         SELECT * FROM click WHERE product_id = #{productId};
     </select>
 
-    <select id="getMostClicked">
+    <select id="getMostClicked" resultType="long">
         select product_id, sum(click_times)
         from click
         where 7 >= datediff(CURRENT_DATE, click_date)
