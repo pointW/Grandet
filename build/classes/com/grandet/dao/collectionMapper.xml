@@ -28,12 +28,22 @@
         </association>
     </resultMap>
 
-    <select id="getCollectionByUserId" parameterType="int" resultMap="collection">
+    <select id="getCollection" parameterType="int" resultMap="collection">
+        SELECT * FROM collection, user, product, type
+        WHERE collection.user_id = user.user_id AND collection.product_id = product.product_id
+                                                AND product.type_id = type.type_id
+                                                AND collection.collection_id = #{id}
+    </select>
+
+    <select id="getCollectionByUserId" parameterType="map" resultMap="collection">
         SELECT * FROM collection, user, product, type
         WHERE collection.user_id = user.user_id AND collection.product_id = product.product_id
                                                 AND product.type_id = type.type_id
                                                 AND collection.user_id = #{userId}
+        limit #{index}, 10
     </select>
+
+
 
     <select id="getCollectionByUserIdAndProductId" parameterType="com.grandet.domain.Collection" resultMap="collection">
         SELECT * FROM collection, user, product, type

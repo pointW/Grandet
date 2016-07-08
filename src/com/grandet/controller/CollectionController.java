@@ -6,6 +6,7 @@ import com.grandet.service.CollectionService;
 import com.grandet.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,10 +31,11 @@ public class CollectionController {
     Map<String, Object> getCollection(HttpServletRequest request){
         Map<String, Object> map = new HashMap<String, Object>();
         String userId = request.getParameter("userId");
+        String page = request.getParameter("page");
         List<Collection> list = null;
-        if (userId != null){
+        if (userId != null && page != null){
             try {
-                list = collectionService.getCollection(Integer.parseInt(userId));
+                list = collectionService.getCollectionByUserId(Integer.parseInt(userId), Integer.parseInt(page));
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -51,13 +53,13 @@ public class CollectionController {
 
     @RequestMapping(value = "/api/collection", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, String> addCollection(Collection collection, HttpServletRequest request, HttpServletResponse response){
-        User user = (User)request.getSession().getAttribute("currentUser");
+    Map<String, String> addCollection(Collection collection, HttpServletRequest request){
         Map<String, String > map = new HashMap<String, String>();
-        if (user.getId()!=collection.getUserId()){
-            map.put("msg", "not match");
-            return map;
-        }
+//        User user = (User)request.getSession().getAttribute("currentUser");
+//        if (user.getId()!=collection.getUserId()){
+//            map.put("msg", "not match");
+//            return map;
+//        }
         int result = collectionService.addCollection(collection);
         if (result == 1){
             map.put("msg", "success");
@@ -73,5 +75,28 @@ public class CollectionController {
         }
         return map;
     }
-    
+
+    @RequestMapping(value = "/api/collection/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    Map<String, Object> deleteCollection(@PathVariable(value = "id")int id, HttpServletRequest request){
+        Map<String, Object> map = new HashMap<>();
+        Collection collection = collectionService.getCollection(id);
+        if (collection == null){
+            map.put("msg", "not exist");
+            return map;
+        }
+//        User user = (User)request.getSession().getAttribute("currentUser");
+//        if (user.getId()!=collection.getUserId()){
+//            map.put("msg", "not match");
+//            return map;
+//        }
+        int result = collectionService.deleteCollection(id);
+        if (result == 1){
+            map.put("msg", "success");
+        }
+        else {
+            map.put("msg", "error");
+        }
+        return map;
+    }
 }

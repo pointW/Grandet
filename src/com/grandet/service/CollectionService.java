@@ -19,8 +19,15 @@ public class CollectionService {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<Collection> getCollection(int userId){
-        return sqlSession.selectList("getCollectionByUserId", userId);
+    public Collection getCollection(int id){
+        return sqlSession.selectOne("getCollection", id);
+    }
+
+    public List<Collection> getCollectionByUserId(int userId, int page){
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("index", (page-1)*10);
+        return sqlSession.selectList("getCollectionByUserId", map);
     }
 
     public int addCollection(Collection collection){
@@ -35,5 +42,9 @@ public class CollectionService {
 
     public Collection getCollection(Collection collection){
         return sqlSession.selectOne("getCollectionByUserIdAndProductId", collection);
+    }
+
+    public int deleteCollection(int id){
+        return sqlSession.delete("deleteCollection", id);
     }
 }

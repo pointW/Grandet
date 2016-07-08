@@ -75,6 +75,10 @@ public class InsideCommentController {
     Map<String, Object> deleteComment(@PathVariable(value = "id") int id, HttpServletRequest request){
         Map<String, Object> map = new HashMap<>();
         InsideComment insideComment = insideCommentService.getInsideComment(id);
+        if (insideComment == null){
+            map.put("msg", "not exist");
+            return map;
+        }
 //        User user = (User)request.getSession().getAttribute("currentUser");
 //        if (user.getId() != insideComment.getUserId()){
 //            map.put("msg", "not match");
