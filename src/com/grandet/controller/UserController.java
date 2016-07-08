@@ -95,13 +95,48 @@ public class UserController {
     public @ResponseBody
     Map<String, Object> upDateUser(@PathVariable(value = "id") int id, User user){
         Map<String, Object> map = new HashMap<String, Object>();
-        if (userService.getUser(id)==null){
+        User preUser = userService.getUser(id);
+        if (preUser==null){
             map.put("msg", "no result");
         }
-//        else if (userService.getUser(id).getUsername()!=user.getUsername()){
-//            map.put("msg", "bad username");
-//        }
+        else if (user.getUsername()!=null && preUser.getUsername()!=user.getUsername()){
+            map.put("msg", "bad username");
+        }
         else {
+            if (user.getPassword() == null){
+                user.setPassword(preUser.getPassword());
+            }
+            if (user.getEmail() == null){
+                user.setEmail(preUser.getEmail());
+            }
+            user.setId(id);
+            if (userService.updateUser(user) == 1) {
+                map.put("msg", "success");
+            } else {
+                map.put("msg", "fail");
+            }
+        }
+        return map;
+    }
+
+    @RequestMapping(value = "/api/user/alter/{id}", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> updateUser(@PathVariable(value = "id") int id, User user){
+        Map<String, Object> map = new HashMap<String, Object>();
+        User preUser = userService.getUser(id);
+        if (preUser==null){
+            map.put("msg", "no result");
+        }
+        else if (user.getUsername()!=null && preUser.getUsername()!=user.getUsername()){
+            map.put("msg", "bad username");
+        }
+        else {
+            if (user.getPassword() == null){
+                user.setPassword(preUser.getPassword());
+            }
+            if (user.getEmail() == null){
+                user.setEmail(preUser.getEmail());
+            }
             user.setId(id);
             if (userService.updateUser(user) == 1) {
                 map.put("msg", "success");

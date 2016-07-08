@@ -22,6 +22,10 @@
         select * from user where user_id=#{id}
     </select>
 
+    <select id="getUserByUsername" parameterType="String" resultMap="userRM">
+        SELECT * FROM user WHERE user_username = #{username}
+    </select>
+
     <select id="getUserByUsernameAndPassword" parameterType="map" resultMap="userRM">
         SELECT * FROM user WHERE user_username = #{username} AND user_password = #{password}
     </select>

@@ -6,9 +6,11 @@ import com.grandet.domain.Product;
 import com.grandet.domain.Website;
 import com.grandet.util.Util;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.DoubleTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,29 @@ public class PriceService {
             }
         }
         return list;
+    }
+
+    //get avg price today
+    public double getPriceAvgByProductId(long productId){
+        List<Price> priceList = getPriceByProductId(productId);
+        if (priceList == null) {
+            return -2;
+        }
+        else if (priceList.isEmpty()) {
+            return -1;
+        }
+        else{
+            int i = 0;
+            double sum = 0;
+            for (Price price : priceList){
+                sum += price.getNumber();
+                i++;
+            }
+            double price = sum/i;
+            DecimalFormat df = new DecimalFormat("#.00");
+            price = Double.parseDouble(df.format(price));
+            return price;
+        }
     }
 
     public List<PriceVO> getPriceHistoryAvgByProductId(long productId){

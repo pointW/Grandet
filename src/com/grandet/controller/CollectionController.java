@@ -32,7 +32,14 @@ public class CollectionController {
         String userId = request.getParameter("userId");
         List<Collection> list = null;
         if (userId != null){
-            list = collectionService.getCollection(Integer.parseInt(userId));
+            try {
+                list = collectionService.getCollection(Integer.parseInt(userId));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                map.put("msg", "bad request");
+                return map;
+            }
         }
         else {
             map.put("msg", "bad request");
@@ -66,4 +73,5 @@ public class CollectionController {
         }
         return map;
     }
+    
 }

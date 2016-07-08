@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,47 @@ public class PriceController {
             map.put("msg", "bad request");
             return map;
         }
-        List<Price> list = priceService.getPriceByProductId(Long.parseLong(productId));
+        List<Price> list;
+        try {
+            list = priceService.getPriceByProductId(Long.parseLong(productId));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            map.put("msg", "bad request");
+            return map;
+        }
         Util.putListToMap(map, list);
+        return map;
+    }
+
+    @RequestMapping(value = "/api/price/avg", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> getPriceAvg(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<>();
+        String productId = request.getParameter("productId");
+        if (productId == null){
+            map.put("msg", "bad request");
+            return map;
+        }
+        double price = 0;
+        try {
+            price = priceService.getPriceAvgByProductId(Long.parseLong(productId));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            map.put("msg", "bad request");
+            return map;
+        }
+        if (price == -2) {
+            map.put("msg", "error");
+        }
+        else if (price == -1) {
+            map.put("msg", "no price");
+        }
+        else {
+            map.put("msg", "success");
+            map.put("price", price);
+        }
         return map;
     }
 
@@ -47,7 +87,15 @@ public class PriceController {
             map.put("msg", "bad request");
             return map;
         }
-        List<PriceVO> list = priceService.getPriceHistoryAvgByProductId(Long.parseLong(productId));
+        List<PriceVO> list;
+        try {
+            list = priceService.getPriceHistoryAvgByProductId(Long.parseLong(productId));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            map.put("msg", "bad request");
+            return map;
+        }
         Util.putListToMap(map, list);
         return map;
     }

@@ -31,13 +31,18 @@ public class InsideCommentController {
         String productId = request.getParameter("productId");
         String userId = request.getParameter("userId");
         String page = request.getParameter("page");
-        if (productId != null && page != null){
-            list = insideCommentService.getInsideComment(Long.parseLong(productId), Integer.parseInt(page));
+        try {
+            if (productId != null && page != null) {
+                list = insideCommentService.getInsideComment(Long.parseLong(productId), Integer.parseInt(page));
+            } else if (userId != null && page != null) {
+                list = insideCommentService.getInsideCommentByUserId(Integer.parseInt(userId), Integer.parseInt(page));
+            } else {
+                map.put("msg", "bad request");
+                return map;
+            }
         }
-        else if (userId != null && page !=null){
-            list = insideCommentService.getInsideCommentByUserId(Integer.parseInt(userId), Integer.parseInt(page));
-        }
-        else {
+        catch (Exception e){
+            e.printStackTrace();
             map.put("msg", "bad request");
             return map;
         }

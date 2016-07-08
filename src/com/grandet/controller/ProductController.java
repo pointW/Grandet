@@ -32,12 +32,25 @@ public class ProductController {
         List<Product> list = null;
         //根据关键字搜索
         if (keyword != null && page !=null){
-            list = productService.getProduct(keyword, Integer.parseInt(page));
+            try {
+                list = productService.getProduct(keyword, Integer.parseInt(page));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                map.put("msg", "bad request");
+                return map;
+            }
         }
         //根据类型id搜索
         else if (typeId != null && page != null){
-            list = productService.getProductByTypeId(Integer.parseInt(typeId), Integer.parseInt(page));
-
+            try {
+                list = productService.getProductByTypeId(Integer.parseInt(typeId), Integer.parseInt(page));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                map.put("msg", "bad request");
+                return map;
+            }
         }
         //获取全部
         else if (keyword == null && page == null && typeId == null){

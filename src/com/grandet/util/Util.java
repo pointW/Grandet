@@ -117,17 +117,38 @@ public class Util {
         return result;
     }
 
+//    public static List<Long> jsonToLongList(String jsonString){
+//        List<Long> result = new ArrayList<Long>();
+//        jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
+//        if (jsonString.equals("")){
+//            return result;
+//        }
+//        String[] strings = jsonString.split(",");
+//        for (String s : strings){
+//            s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
+//            result.add(Long.parseLong(s));
+//        }
+//        return result;
+//    }
+
     public static List<Long> jsonToLongList(String jsonString){
-        List<Long> result = new ArrayList<Long>();
-        jsonString = org.apache.commons.lang.StringUtils.strip(jsonString, "[]");
-        if (jsonString.equals("")){
-            return result;
+        List<String> list = new ArrayList<>();
+        List<Long> result = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            list = mapper.readValue(jsonString, List.class);
         }
-        String[] strings = jsonString.split(",");
-        for (String s : strings){
-            s = org.apache.commons.lang.StringUtils.strip(s, "\""+" ");
-            result.add(Long.parseLong(s));
-            System.out.println(s);
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        for (String s : list){
+            try {
+                result.add(Long.parseLong(s));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                continue;
+            }
         }
         return result;
     }
