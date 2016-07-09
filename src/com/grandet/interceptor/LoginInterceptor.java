@@ -14,22 +14,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws Exception {
 
         //查看评论放行
-//        if(request.getServletPath().startsWith("comment")&&"GET".equalsIgnoreCase(request.getMethod())) {
-//            return true;
-//        }
-
-        return true;
+        if(request.getServletPath().startsWith("comment")&&"GET".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
 
         //如果用户已经登录 放行
-//        if(request.getSession().getAttribute("currentUser") != null) {
-//            System.out.println("已经登录");
-//            return true;
-//        }
+        if(request.getSession().getAttribute("currentUser") != null) {
+            System.out.println("已经登录");
+            return true;
+        }
 
         //非法请求 即这些请求需要登录后才能访问
         //重定向
-//        response.sendRedirect(request.getContextPath()+"/api/loginFirst");
-//        return false;
+        response.sendRedirect(request.getContextPath()+"/api/loginFirst");
+        return false;
     }
 }
 

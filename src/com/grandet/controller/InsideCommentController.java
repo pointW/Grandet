@@ -55,11 +55,11 @@ public class InsideCommentController {
     Map<String, Object> addComment(InsideComment insideComment, HttpServletRequest request){
         insideComment.setDate(new Date(System.currentTimeMillis()));
         Map<String, Object> map = new HashMap<>();
-//        User user = (User)request.getSession().getAttribute("currentUser");
-//        if (user.getId() != insideComment.getUserId()){
-//            map.put("msg", "not match");
-//            return map;
-//        }
+        User user = (User)request.getSession().getAttribute("currentUser");
+        if (user.getId() != insideComment.getUserId()){
+            map.put("msg", "not match");
+            return map;
+        }
         int result = insideCommentService.addInsideComment(insideComment);
         if (result == 1){
             map.put("msg", "success");
@@ -79,11 +79,11 @@ public class InsideCommentController {
             map.put("msg", "not exist");
             return map;
         }
-//        User user = (User)request.getSession().getAttribute("currentUser");
-//        if (user.getId() != insideComment.getUserId()){
-//            map.put("msg", "not match");
-//            return map;
-//        }
+        User user = (User)request.getSession().getAttribute("currentUser");
+        if (user.getId() != insideComment.getUserId()){
+            map.put("msg", "not match");
+            return map;
+        }
         int result = insideCommentService.deleteInsideComment(id);
         if (result == 1){
             map.put("msg", "success");
