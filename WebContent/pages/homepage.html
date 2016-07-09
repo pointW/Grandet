@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>HomePage</title>
+
+	<!-- CSS -->
+	<link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="css/simple-line-icons.css" rel="stylesheet" media="screen">
+	<link href="css/animate.css" rel="stylesheet">
+    
+	<!-- Custom styles CSS -->
+	<link href="css/style.css" rel="stylesheet" media="screen">
+
+	<link href="css/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/css/flat-ui.css" rel="stylesheet">
+    
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+<!--     <script src="js/modernizr.custom.js"></script>
+ -->
+  
+    
+    
+    <script >
+     // 请求数据
+    function load(){
+    	$.get("http://123.206.33.237:8080/Grandet/api/click/mostClicked",function(data,status){
+
+    		var dzm1_img = document.getElementById('MC_1');
+    		dzm1_img.src =data.list[0].pic;
+    		var dzm1_title = document.getElementById('MC_1_title');
+    		dzm1_title.innerHTML =data.list[0].name;
+    		var dzm2_img = document.getElementById('MC_2');
+    		dzm2_img.src =data.list[1].pic;
+    		var dzm2_title = document.getElementById('MC_2_title');
+    		dzm2_title.innerHTML =data.list[1].name;
+    		var dzm2_address = document.getElementById('dzm2_add')
+    		dzm2_address.href ="http://123.206.33.237:8080/Grandet//api/product?keyword="+data.list[1].name +"&page=0";
+
+
+    		
+
+    		var dzm3_img = document.getElementById('MC_3');
+    		dzm3_img.src =data.list[2].pic;
+    		var dzm3_title = document.getElementById('MC_3_title');
+    		dzm3_title.innerHTML =data.list[2].name;
+    		var dzm4_img = document.getElementById('MC_4');
+    		dzm4_img.src =data.list[3].pic;
+    		var dzm4_title = document.getElementById('MC_4_title');
+    		dzm4_title.innerHTML =data.list[3].name;
+
+
+
+    	});
+
+    }
+
+
+    	// 搜索脚本
+    	function search_btn_clicked(){
+
+    		var input_text = document.getElementById('bar_content').value;
+    		
+    		window.location.href = "http://123.206.33.237:8080/Grandet/search?keyword=" + input_text + "&page=1"; 
+			return ;
+
+			var params ={
+				"keyword" :input_text,
+				"page": 0
+			};
+			$.get("http://123.206.33.237:8080/Grandet/api/product",params,function(data,status){
+				alert(data);
+
+			});
+
+    	}
+
+    	function search_btn_clicked1(){
+    		var input_text = document.getElementById('downer_conent').value;
+    		window.location.href = "http://123.206.33.237:8080/Grandet/api/product?keyword=" + input_text + "&page=0"; 
+			return ;
+
+			var params ={
+				"keyword" :input_text,
+				"page": 0
+			};
+			$.get("http://123.206.33.237:8080/Grandet/api/product",params,function(data,status){
+				alert(data);
+
+			});
+    	}
+
+    	// 横栏跳转
+    	function click_branch1(){
+    		window.location.href="https://www.amazon.cn/kindle-store/dp/B00QJDOLIO?ie=UTF8&ref_=asw1_108471372_1_1082_KINDLE"; 
+    	}
+    	function click_branch2(){
+    		window.location.href="https://www.amazon.cn/gp/product/B010EJPW7C/ref=fs_ko"; 
+    	}
+    	function click_branch3(){
+    		window.location.href="https://www.amazon.cn/gp/product/B010EJPW7C/ref=fs_ko"; 
+    	}
+    	function click_img01(){
+    		window.location.href="http://www.huihui.cn/brandDay/35196837?keyfrom=35196837_onebox";
+    	}
+    	function click_img02(){
+    		window.location.href="http://www.huihui.cn/deals/35220847?keyfrom=35220847_onebox";
+    	}
+    	function click_img03(){
+    		window.location.href="http://www.huihui.cn/deals/35215245";
+    	}
+    	function click_img04(){
+    		window.location.href="http://www.huihui.cn/deals/35215245";
+    	}
+    	
+    	function onclick_dzm1(){
+    		$.get("http://123.206.33.237:8080/Grandet/api/click/mostClicked",function(data,status){
+
+    		
+    		var address=data.list[0].id;
+    		
+    		window.location.href="http://123.206.33.237:8080/Grandet/product?id="+address;
+    		});
+
+
+    	}
+    	function onclick_dzm2(){
+    		$.get("http://123.206.33.237:8080/Grandet/api/click/mostClicked",function(data,status){
+
+    		
+    		var address=data.list[1].id;
+    		
+    		window.location.href="http://123.206.33.237:8080/Grandet/product?id="+address;
+    		});
+
+
+    	}
+    	function onclick_dzm3(){
+    		$.get("http://123.206.33.237:8080/Grandet/api/click/mostClicked",function(data,status){
+
+    		
+    		var address=data.list[2].id;
+    		
+    		window.location.href="http://123.206.33.237:8080/Grandet/product?id="+address;
+    		});
+
+
+    	}
+    	function onclick_dzm4(){
+    		$.get("http://123.206.33.237:8080/Grandet/api/click/mostClicked",function(data,status){
+
+    		
+    		var address=data.list[3].id;
+    		
+    		window.location.href="http://123.206.33.237:8080/Grandet/product?id="+address;
+    		});
+
+
+    	}
+
+
+    	
+
+
+
+    </script>
+
+</head>
+<body onload="load()" data-spy="scroll" data-target="#myScrollspy">
+
+	<!-- Preloader -->
+
+	<div id="preloader">
+		<div id="status"></div>
+	</div>
+
+	<!-- Home start -->
+
+	<section id="home" class="pfblock-image screen-height">
+        <div class="home-overlay"></div>
+		<div class="intro">
+			<img alt="30x30" src="img/logo2.png"  class="img-circle" />
+		
+			<h1>Grante shopping assistant</h1>
+			<!-- 标题栏搜索 -->
+
+			
+
+			
+
+			<div class="start">给您最精确的商品数据</div>
+
+
+		</div>
+
+	</section>
+
+	
+	<section>
+
+        <a href="#services">
+		<div class="scroll-down">
+            <span>
+                <i class="fa fa-angle-down fa-2x"></i>
+            </span>
+		</div>
+        </a>
+
+	</section>
+
+	<!-- Home end -->
+
+	<!-- Navigation start -->
+
+	<header class="header">
+
+
+		<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+              <a class="navbar-brand" href="#">
+                <div class="logo">
+                      <img src="img/logo.png" rel="tooltip" tdata-placement="bottom" data-html="true">
+                      <span><h>Grandet</h></span>
+                  </div>
+                  
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              
+
+              <form class="navbar-form navbar-left" action="#" role="search" >
+                <div class="form-group">
+                    
+                  <div class="input-group">
+                    <input  class="form-control" type="text" placeholder="Huge" id="bar_content" value="iphone6s">
+                    
+                  </div>
+                </div>
+                </form>
+
+             <!--  <span class="input-group-btn"> -->
+            	 <div>
+                      <button class="btn btn-inverse" onclick="search_btn_clicked()"><span class="fui-search"></span></button>
+                      
+                <!--     </span> -->
+                </div>
+
+
+
+
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://123.206.33.237:8080/Grandet/login">您的账户  <span class="fui-user"></span>
+                </a></li>
+                <li><a href="http://123.206.33.237:8080/Grandet/register">立即注册  <span class="fui-plus"></span></a></li>
+
+                <li><a href="http://123.206.33.237:8080/Grandet/collection">收藏夹  <span class="fui-bookmark"></span></a></li>
+               </ul>
+               
+            </div><!-- /.navbar-collapse -->
+          </nav><!-- /navbar -->
+
+
+		
+
+	</header>
+
+	<!-- Navigation end -->
+
+    <!-- Services start -->
+
+	<section id="services" class="pfblock pfblock-gray">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-12 col-lg-12">
+
+					<div class="carousel slide" id="carousel-18121">
+				<ol class="carousel-indicators">
+					<li data-slide-to="0" data-target="#carousel-18121">
+					</li>
+					<li data-slide-to="1" data-target="#carousel-18121">
+					</li>
+					<li data-slide-to="2" data-target="#carousel-18121" class="active">
+					</li>
+				</ol>
+				<!--  横幅 -->
+				<div class="col-md-12 col-lg-12 carousel-inner">
+					<div class="item">
+						<img alt="" src="img/branch1.jpg" id="branch1" onclick="click_branch1()" />
+						<div class="carousel-caption">
+							
+						</div>
+					</div>
+					<div class="item">
+						<img alt="" src="img/branch2.jpg" id="branch2" onclick="click_branch2()" />
+						<div class="carousel-caption">
+							
+						</div>
+					</div>
+					<div class="item active">
+						<img alt="" src="img/branch1.jpg" id="branch3" onclick="click_branch3()" />
+						<div class="carousel-caption">
+							
+						</div>
+					</div>
+				</div> <a data-slide="prev" href="#carousel-18121" class="left carousel-control">‹</a> <a data-slide="next" href="#carousel-18121" class="right carousel-control">›</a>
+			</div>
+
+
+				</div>
+
+			</div>
+
+		<section class="pfblock pfblock-gray" id="skills">
+		
+			<div class="container">
+			
+				<div class="row skills">
+					
+					<div class="row">
+
+                        <div class="col-sm-6 col-sm-offset-3">
+
+                            <div class="pfblock-header wow fadeInUp">
+                                <h2 class="pfblock-title">大家都在买</h2>
+                                <div class="pfblock-line"></div>
+                                <div class="pfblock-subtitle">
+                                    选取过去一周销量最优商品
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- .row -->
+					
+					<div class="col-xs-12 col-sm-3 col-md-3">
+	            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_1" src="" alt=""/>
+	                            <figcaption>
+	                            <h2 onclick="onclick_dzm1()" ><span id="MC_1_id"></span></h2>
+	                                <p onclick="onclick_dzm1()" id='MC_1_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_2" src="" alt=""/>
+	                            <figcaption>
+	                            <h2><span id="MC_2_id"></span></h2>
+	                                <p onclick="onclick_dzm2()" id='MC_2_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_3" src="" alt=""/>
+	                            <figcaption>
+	                            <h2><span id="MC_3_id"></span></h2>
+	                                <p  onclick="onclick_dzm3()" id='MC_3_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                           <img id="MC_4" src="" alt=""/>
+	                            <figcaption>
+	                           <h2><span id="MC_4_id"></span></h2>
+	                                <p onclick="onclick_dzm4()"  id='MC_4_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+					
+				</div><!--End row -->
+			
+			</div>
+		
+    </section>
+
+			
+		</div><!-- .container -->
+	</section>
+
+	<!-- Services end -->
+
+	<section id="portfolio" class="pfblock">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 col-sm-offset-3">
+
+					<div class="pfblock-header wow fadeInUp">
+						<h2 class="pfblock-title">最热消息汇总</h2>
+						<!-- <div class="pfblock-line"></div> -->
+						
+					</div>
+
+				</div>
+
+			</div><!-- .row -->
+            
+            
+            <div class="row">
+
+                
+                <div class="col-xs-9 col-sm-3 col-md-3">
+            
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="img/img01.jpeg"  alt="img01"/>
+                            <figcaption>
+                            <h2 onclick="click_img01()">热销美妆低至49元</span></h2>
+                                
+                            </figcaption>			
+                        </figure>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-xs-9 col-sm-3 col-md-3">
+            
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="img/img02.jpeg" onclick="click_img02()" alt="img01"/>
+                            <figcaption>
+                            <h2 onclick="click_img02()">爱上霸道丸子头总裁</span></h2>
+                                
+                            </figcaption>			
+                        </figure>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-xs-9 col-sm-3 col-md-3">
+            
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="img/img03.png"   alt="img01"/>
+                            <figcaption>
+                            <h2 onclick="click_img03()">超清新配色2双100￥</span></h2>
+                                
+                            </figcaption>			
+                        </figure>
+                    </div>
+                    
+                </div>
+                 <div class="col-xs-9 col-sm-3 col-md-3">
+            
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="img/img03.png"  alt="img01" onclick="" />
+                            <figcaption>
+                            <h2 onclick="click_img04()">超清新配色2双100￥</span></h2>
+                                
+                            </figcaption>			
+                        </figure>
+                    </div>
+                    
+                </div>
+
+                <div class="row show-grid">
+
+				<div class="col-sm-3">
+
+					<div class="iconbox wow slideInLeft">
+						<div class="iconbox-icon">
+							<span class="icon-magic-wand"></span>
+						</div>
+						<div class="iconbox-text">
+							<h3 class="iconbox-title">最热减价</h3>
+							<div class="iconbox-desc">
+								<p><a href="http://www.huihui.cn/deals/35197935?keyfrom=promotion_small">Adidas全场4-6折 299减40 </a></p>
+								<p><a href="http://www.huihui.cn/deals/35222955?keyfrom=promotion_small">天猫 夏装全场神价格 </a></p>
+								<p><a href="http://www.huihui.cn/superrebate/33341103?keyfrom=onebox33341103_sjwzl&keyfrom=promotion_small">超级返专场来袭！</a></p>
+								<p><a href="http://www.huihui.cn/deals/35196954?keyfrom=promotion_small">天猫超市 水果生鲜66减30 </a></p>
+								
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-sm-3">
+
+					<div class="iconbox wow slideInLeft">
+						<div class="iconbox-icon">
+							<span class="icon-puzzle"></span>
+						</div>
+						<div class="iconbox-text">
+							<h3 class="iconbox-title">海淘直邮</h3>
+							<div class="iconbox-desc">
+								<p><a href="http://www.huihui.cn/deals/35269896">Converse 匡威 All Star 70 Ox  </a></p>
+								<p><a href="http://www.huihui.cn/deals/35269390">Reebok 锐步 Kids Twistform Fall </a></p>
+								<p><a href="www.baidu.com">
+								THE HUT Le Creuset 品牌专场</a></p>
+								<p><a href="www.baidu.com">Cure Natural 活性去角质凝胶 250ml</a></p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-sm-3">
+
+					<div class="iconbox wow slideInRight">
+						<div class="iconbox-icon">
+							<span class="icon-badge"></span>
+						</div>
+						<div class="iconbox-text">
+							<h3 class="iconbox-title">热门活动</h3>
+							<div class="iconbox-desc">
+								<p><a href="http://www.huihui.cn/deals/35269896">全网折扣聚合——商品折扣这里都有 </a></p>
+								<p><a href="http://www.huihui.cn/deals/35269390">促销逛不完——活动实时更新</a></p>
+								<p><a href="www.baidu.com">
+								聚划算——单件包邮 每天0:00或10:00更新</a></p>
+								<p><a href="www.baidu.com">大家都在买——看看别人的购物车</a></p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-sm-3">
+
+					<div class="iconbox wow slideInRight">
+						<div class="iconbox-icon">
+							<span class="icon-question"></span>
+						</div>
+						<div class="iconbox-text">
+							<h3 class="iconbox-title">提问专区</h3>
+							<div class="iconbox-desc">
+								<p><a href="http://www.huihui.cn/deals/35269896">联系我们 </a></p>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div><!-- .row -->
+
+                
+            </div>
+
+
+		</div><!-- .contaier -->
+
+	</section>
+
+	<!-- Portfolio end -->
+    
+    <!-- Skills start -->
+    
+    <section class="pfblock pfblock-gray" id="skills">
+		
+			<div class="container">
+			
+				<div class="row skills">
+					
+					<div class="row">
+
+                        <div class="col-sm-6 col-sm-offset-3">
+
+                            <div class="pfblock-header wow fadeInUp">
+                                <h2 class="pfblock-title">更多功能</h2>
+                                <div class="pfblock-line"></div>
+                                <div class="pfblock-subtitle">
+                                    仍在完善
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- .row -->
+					
+					<div class="col-xs-12 col-sm-3 col-md-3">
+	            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_1" src="" alt=""/>
+	                            <figcaption>
+	                            <h2><span id="MC_1_id"></span></h2>
+	                                <p id='MC_1_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_2" src="" alt=""/>
+	                            <figcaption>
+	                            <h2><a id="dzm2_add" href="" ><span id="MC_2_id"></span></h2>
+	                                <p id='MC_2_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                            <img id="MC_3" src="" alt=""/>
+	                            <figcaption>
+	                            <h2><span id="MC_3_id"></span></h2>
+	                                <p id='MC_3_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+
+					<div class="col-xs-12 col-sm-3 col-md-3">
+            
+	                    <div class="grid wow zoomIn">
+	                        <figure class="effect-bubba">
+	                           <img id="MC_4" src="" alt=""/>
+	                            <figcaption>
+	                           <h2><span id="MC_4_id"></span></h2>
+	                                <p id='MC_4_title'></p>
+	                            </figcaption>			
+	                        </figure>
+	                    </div>
+	                    
+	                </div>
+					
+				</div><!--End row -->
+			
+			</div>
+		
+    </section>
+    
+    <!-- Skills end -->
+
+	<!-- CallToAction start -->
+
+	<section class="calltoaction">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-12 col-lg-12">
+					<h2 class="wow slideInRight" data-wow-delay=".1s">享受更多服务</h2>
+					<div class="calltoaction-decription wow slideInRight" data-wow-delay=".2s">
+						无需等待，就是现在
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-12 calltoaction-btn wow slideInRight" data-wow-delay=".3s">
+					<a href="http://123.206.33.237:8080/Grandet/register" class="btn btn-lg">立即注册</a>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section>
+
+	<!-- CallToAction end -->
+
+	<!-- Testimonials start -->
+
+	
+
+	<!-- Testimonial end -->
+
+
+	<!-- Contact start -->
+
+
+
+	<!-- Contact end -->
+
+	<!-- Footer start -->
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-12">
+
+					<ul class="social-links">
+						<li><a href="index.html#" class="wow fadeInUp"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".1s"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".2s"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".5s"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+
+					<p class="heart">
+                        Made with <span class="fa fa-heart fa-2x animated pulse"></span> in Chengdu
+                    </p>
+                    <p class="copyright">
+                        © 2016 Grandet |  WQ&MXX&WD&HWD&CQC&ZK
+					</p>
+
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</footer>
+
+	<!-- Footer end -->
+
+	<!-- Scroll to top -->
+
+	<div class="scroll-up">
+		<a href="#home"><i class="fa fa-angle-up"></i></a>
+	</div>
+    
+    <!-- Scroll to top end-->
+
+	<!-- Javascript files -->
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="css/bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/jquery.parallax-1.1.3.js"></script>
+	<script src="js/imagesloaded.pkgd.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/wow.min.js"></script>
+    <script src="js/jquery.easypiechart.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.cbpQTRotator.js"></script>
+	<script src="js/custom.js"></script>
+
+	
+
+   
+</div>
+
+</body>
+</html>

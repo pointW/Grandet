@@ -23,14 +23,8 @@ public class PageController {
 //    }
 
     @RequestMapping(value = "/home")
-    public String home(HttpServletRequest request, HttpServletResponse response){
-//        try {
-//            request.getRequestDispatcher("/pages/index.html").forward(request, response);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-        return "index";
+    public String home(){
+        return "homepage";
     }
 
     @RequestMapping(value = "/register")
@@ -51,6 +45,21 @@ public class PageController {
     @RequestMapping(value = "/login")
     public String login(){
         return "login";
+    }
+
+    @RequestMapping(value = "/collection")
+    public String collection(){
+        return "collection";
+    }
+
+    @RequestMapping(value = "/alteremail")
+    public String alterEmail(){
+        return "alteremail";
+    }
+
+    @RequestMapping(value = "/alterpassword")
+    public String alterPassword(){
+        return "alterpassword";
     }
 
 }

@@ -53,8 +53,12 @@ public class InsideCommentController {
     @RequestMapping(value = "/api/comment", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addComment(InsideComment insideComment, HttpServletRequest request){
-        insideComment.setDate(new Date(System.currentTimeMillis()));
         Map<String, Object> map = new HashMap<>();
+        if (insideComment.getUserId() == 0 || insideComment.getProductId() == 0 || insideComment.getDetail() == null){
+            map.put("msg", "bad request");
+            return map;
+        }
+        insideComment.setDate(new Date(System.currentTimeMillis()));
         User user = (User)request.getSession().getAttribute("currentUser");
         if (user.getId() != insideComment.getUserId()){
             map.put("msg", "not match");

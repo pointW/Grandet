@@ -190,6 +190,7 @@
                         }
 
                         </script>
+<title>商品详情</title>
 </head>
 
 <body onload="on_init()" >
@@ -291,7 +292,7 @@
 						var html3 = "<a href="
 						var html4 = "</a>"
 						var website_name,logo,price,item_url;
-						for (i=0;i <data["list"].length-1; i++) {
+						for (i=0;i <data["list"].length; i++) {
 							website_name = data["list"][i]["website"]["name"];
 							logo = data["list"][i]["website"]["pic"];
 							product_name =  data["list"][i]["product"]["name"];

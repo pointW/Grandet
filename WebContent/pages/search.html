@@ -101,7 +101,7 @@
         var next_url = "http://123.206.33.237:8080/Grandet/product?productId=" + item_list[i]["id"];
         html = html + " <div class=\"col-xs-12 col-sm-4 col-md-4\"><div class=\"tile\"><img src=\"" + item_list[i]["pic"]+"\"/>"+
               "<h3><span>"+item_list[i]["name"] + "</span></h3><p><span>"+item_list[i]["type"]["name"]+"</span></p>"+
-              "<a class=\"btn btn-primary btn-large btn-block\" href=\""+next_url+"\">Get Pro</a></div></div>";
+              "<a class=\"btn btn-primary btn-large btn-block\" href=\""+next_url+"\">商品详情</a></div></div>";
 
         if (i % 3 === 2) {
           html = html + "</div>";
