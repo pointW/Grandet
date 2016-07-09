@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<title></title>
+	  <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+
+    <link href="css/demo.css" rel="stylesheet">
+
+	<script src="http://cdn.bootcss.com/echarts/3.2.0/echarts.min.js"></script>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script>
+
+		function on_init() {
+			item_history();
+			comment_count();
+			comment_key();
+			var url = "http://123.206.33.237:8080/Grandet/api/product/"+getProductId();
+			
+			$.get(url, function(data, status) {
+				// alert(data["object"]["pic"]);
+				var img_tag = document.getElementById('item_img');
+				img_tag.src = data["object"]["pic"];
+				//alert(JSON.stringify(data["object"]));
+				var item_name = document.getElementById("item_name");
+				item_name.innerHTML = data["object"]["name"];
+			});
+		}
+        
+        function comment_key(){
+             var url = "http://123.206.33.237:8000/summary/"+getProductId();
+             var description=new Array();
+             var wordcount=new Array();
+             var i;
+             $.get(url,function(data,status){
+                 for(i=0;i<data["tags"].length;i++){
+				description[i]=data["tags"][i]["description"];
+                wordcount[i]=data["tags"][i]["count"];
+                key(description,wordcount);
+            }
+             });
+        }
+
+		function comment_count(){
+			var url= "http://123.206.33.237:8000/summary/"+getProductId();
+			var goodCount,badCount;
+			$.get(url, function(data, status) {
+				goodCount = data["goodCount"];
+				badCount = data["badCount"];
+			    Count(goodCount,badCount);
+		});
+		}
+	
+        function getProductId(){
+        	var url = window.location.href;
+        	var arr = new Array();
+        	arr = url.split("?");
+            var productId = arr[1].split("=");
+           // alert(productId[1]);
+            return productId[1];
+        }
+
+        function getUserID(){
+			var s = document.cookie.split(";");
+			var i;
+			for (i=0;i<s.length;i++) {
+			if (s[i].split("=")[0] === " userID") {
+			return s[i].split("=")[1]
+			}
+		}
+	}
+
+
+		function item_history() {
+			var url = "http://123.206.33.237:8080/Grandet/api/price/history?productId="+getProductId();
+			var item_date = new Array();
+			var item_price = new Array();
+			var i = 0 ;
+			$.get(url, function(data, status) {
+				for(i=0;i<data["list"].length;i++){
+				item_date[i]=data["list"][i]["date"];
+				item_date[i]= new Date(Number(item_date[i]));
+                item_price[i]=data["list"][i]["price"];}
+                item_pic(item_date,item_price);
+			});
+		}
+
+		
+		function search_btn_clicked() {
+
+			var input_text = document.getElementById('search_content').value;
+
+			window.location.href = "http://123.206.33.237:8080/Grandet/search?keyword="+input_text+"&page=1";
+			
+		}
+	</script>
+
+	<script type="text/javascript">
+            var pageSize = 10;    //每页显示的记录条数
+             var curPage=0;        //当前页
+             var lastPage;        //最后页
+             var direct=0;        //方向
+            var len;            //总行数
+            var page;            //总页数
+            var begin;
+            var end;
+            
+                
+            $(document).ready(function display(){   
+                len =$("#mytable tr").length - 1;    // 求这个表的总行数，剔除第一行介绍
+                page=len % pageSize==0 ? len/pageSize : Math.floor(len/pageSize)+1;//根据记录条数，计算页数
+                // alert("page==="+page);
+                curPage=1;    // 设置当前为第一页
+                displayPage(1);//显示第一页
+                
+                document.getElementById("btn0").innerHTML="当前 " + curPage + "/" + page + " 页    每页 ";    // 显示当前多少页
+                document.getElementById("sjzl").innerHTML="数据总量 " + len + "";        // 显示数据量
+                document.getElementById("pageSize").value = pageSize;
+                
+                
+                
+                $("#btn1").click(function firstPage(){    // 首页
+                    curPage=1;
+                    direct = 0;
+                    displayPage();
+                });
+                $("#btn2").click(function frontPage(){    // 上一页
+                    direct=-1;
+                    displayPage();
+                });
+                $("#btn3").click(function nextPage(){    // 下一页
+                    direct=1;
+                    displayPage();
+                });
+                $("#btn4").click(function lastPage(){    // 尾页
+                    curPage=page;
+                    direct = 0;
+                    displayPage();
+                });
+                $("#btn5").click(function changePage(){    // 转页
+                    curPage=document.getElementById("changePage").value * 1;
+                    if (!/^[1-9]\d*$/.test(curPage)) {
+                        alert("请输入正整数");
+                        return ;
+                    }
+                    if (curPage > page) {
+                        alert("超出数据页面");
+                        return ;
+                    }
+                    direct = 0;
+                    displayPage();
+                });
+                
+                
+                $("#pageSizeSet").click(function setPageSize(){    // 设置每页显示多少条记录
+                    pageSize = document.getElementById("pageSize").value;    //每页显示的记录条数
+                    if (!/^[1-9]\d*$/.test(pageSize)) {
+                        alert("请输入正整数");
+                        return ;
+                    }
+                    len =$("#mytable tr").length - 1;
+                    page=len % pageSize==0 ? len/pageSize : Math.floor(len/pageSize)+1;//根据记录条数，计算页数
+                    curPage=1;        //当前页
+                     direct=0;        //方向
+                     firstPage();
+                });
+            });
+ 
+            function displayPage(){
+                if(curPage <=1 && direct==-1){
+                    direct=0;
+                    alert("已经是第一页了");
+                    return;
+                } else if (curPage >= page && direct==1) {
+                    direct=0;
+                    alert("已经是最后一页了");
+                    return ;
+                }
+                
+                lastPage = curPage;
+               
+                // 修复当len=1时，curPage计算得0的bug
+                if (len > pageSize) {
+                    curPage = ((curPage + direct + len) % len);
+                } else {
+                    curPage = 1;
+                }
+          
+                
+                document.getElementById("btn0").innerHTML="当前 " + curPage + "/" + page + " 页    每页 ";        // 显示当前多少页
+                
+                begin=(curPage-1)*pageSize + 1;// 起始记录号
+                end = begin + 1*pageSize - 1;    // 末尾记录号
+             
+                
+                if(end > len ) end=len;
+                $("#mytable tr").hide();    // 首先，设置这行为隐藏
+                $("#mytable tr").each(function(i){    // 然后，通过条件判断决定本行是否恢复显示
+                    if((i>=begin && i<=end) || i==0 )//显示begin<=x<=end的记录
+                        $(this).show();
+                });
+
+             }
+    </script>
+</head>
+
+<body onload="on_init()" width="1024px" height="768px">
+
+<div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+      
+      
+			<div class="page-header">
+			 <ul class="nav nav-pills">
+             <li role="presentation" class="active"><a href="http://123.206.33.237:8080/Grandet/home.html">主页</a></li>
+             <li role="presentation"><a href="http://123.206.33.237:8080/Grandet/collection.html">收藏</a></li>
+             </ul>
+				<h1>
+				<img src="img/u24.png" width="100" height="100" />Grante购物助手 </h1>
+			   
+			</div>
+
+		
+            <input type="text" id="search_content" align="right">
+              <button class="btn btn-embossed btn-primary" onclick="search_btn_clicked()" >
+                    Search
+              </button>
+
+         <h3>
+          
+			<span class="label label-primary">商品详情</span>
+		</h3>
+   
+			  <div class="col-md-6 col-md-offset-3 column" >
+			       
+
+			    <h5 align="center" id="item_name"></h5>
+				<p align="center">
+					<img id="item_img" src="" alt="" name="goodimg" width="300" height="300"/>
+				</p>
+			  </div>
+
+  <canvas></canvas>
+	    
+  <div class="col-md-12 column">
+
+ 
+        <h3>
+            
+			<span class="label label-primary">历史价格</span>
+		</h3>
+			<div id="main" style="width: 600px;height:400px;"></div>
+			<script>
+			function item_pic(item_date,item_price)
+			{ 
+				//alert(item_date);
+
+			var myChart = echarts.init(document.getElementById('main'));
+
+			option = {
+    title: {
+        text: '历史价格',
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['价格']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: item_date
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+            formatter: '{value} 元'
+        }
+    },
+    series: [
+        {
+            name:'价格',
+            type:'line',
+            data: item_price,
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+                    
+ myChart.setOption(option);
+}
+
+			</script>
+
+  </div>
+	</div>
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+		<h3>
+		       
+				<span class="label label-primary">商城价格比较</span>
+		</h3>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="70">
+							网上商城
+						</th>
+						<th width="100">
+							商城logo
+						</th>
+						<th width="70">
+							商品名
+						</th>
+						<th width="70">
+							价格
+						</th>
+					</tr>
+				</thead>
+				<tbody id="table_body">
+					<script>
+					var table_body = document.getElementById("table_body");
+					var url = "http://123.206.33.237:8080/Grandet/api/price";
+					var params = {
+						'productId': getProductId()
+					};
+					$.get(url,params, function(data, status) {
+						//alert(JSON.stringify(data));
+						var html = "";
+						var html1 = "<img src="
+						var html2 = "alt=\"\", height=\"50\" width=\"100\"/>"
+						var html3 = "<a href="
+						var html4 = "</a>"
+						var website_name,logo,price,item_url;
+						for (i=0;i <data["list"].length-1; i++) {
+							website_name = data["list"][i]["website"]["name"];
+							logo = data["list"][i]["website"]["pic"];
+							product_name =  data["list"][i]["product"]["name"];
+							price = data["list"][i]["number"];
+                            item_url = data["list"][i]["url"];
+							html = html + "<tr><td>"+website_name+"</td><td>"+html1+"\""+logo+"\""+html2
+							+"</td><td>"+html3+"\""+item_url+"\">"+product_name+html4+"</td><td>"+price+"</td></tr>";
+					        table_body.innerHTML = html;
+						}	
+					});
+	
+				</script>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>
+			    
+				<span class="label label-primary">评价分析</span>
+			</h3>
+			<div id="analysis" style="width: 600px;height:400px;"></div>
+			<script >
+			function Count(goodCount,badCount){
+			var myChart = echarts.init(document.getElementById('analysis'));
+			option = {
+    title : {
+        text: '评论分析',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['好评','差评']
+    },
+    series : [
+        {
+            name: '评论数',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:goodCount, name:'好评',itemStyle: {
+             normal: {
+            color: '#EE6A50'
+        }
+    }},
+                {value:badCount, name:'差评',itemStyle: {
+             normal: {
+            color: '#FFD700'
+        }
+    }},
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+      myChart.setOption(option);
+}
+</script>
+<div id="analysis_key" style="width: 1000px;height:400px;"></div>
+<script>
+function key(description,wordcount){
+			var myChart = echarts.init(document.getElementById('analysis_key'));
+option = {
+    tooltip: {},
+    legend: {
+        data:['评价关键词']
+    },
+    itemStyle: {
+    normal: {
+
+        color: '#4876FF',
+    }
+    },
+    xAxis: {
+        data: description
+    },
+    yAxis: {},
+    series: [{
+        name: '评价关键词',
+        type: 'bar',
+
+        data: wordcount
+    }]
+};
+ myChart.setOption(option);
+}
+</script>
+</div>
+</div>
+
+<div class="row clearfix">
+  <div class="col-md-12 column">
+	<h3>
+				
+				<span class="label label-primary">优秀评价汇总</span>
+		
+  </h3>
+		<table id="goodcomment" class="table table-bordered">
+          
+		  <tr>
+		    <td >时间</td>
+		    <td >评价</td>
+	      </tr>
+	      <script>
+					var goodcomment = document.getElementById("goodcomment");
+					var url = "http://123.206.33.237:8000/comments/"+getProductId();
+					$.get(url,function(data, status){
+						var html = "";
+						var comment_date,comment_content,i;
+						for ( i = data.length - 1; i >= 0; i--) {
+							comment_date = data[i]["date"];
+							comment_content = data[i]["content"];
+							html = html + "<tr><td>"+comment_date+"</td><td>"+comment_content+"</td><td>";
+					        goodcomment.innerHTML = html;
+						}
+						
+					});
+
+					
+				</script>
+		  
+	    </table>
+		<p>&nbsp;</p>
+      </div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		<h3>   
+		                    
+							<span class="label label-primary">葛朗台点评</span>
+		</h3>
+			
+
+		<a id="btn0"></a>
+                <input id="pageSize" type="text" size="1" maxlength="2" value="getDefaultValue()"/><a> 条 </a> <a href="#" id="pageSizeSet">设置</a>&nbsp;
+                <a id="sjzl"></a>&nbsp;
+                <a  href="#" id="btn1">首页</a>
+                <a  href="#" id="btn2">上一页</a>
+                <a  href="#" id="btn3">下一页</a>
+                <a  href="#" id="btn4">尾页</a>&nbsp;
+                <a>转到&nbsp;</a>
+                <input id="changePage" type="text" size="1" maxlength="4"/>
+                <a>页&nbsp;</a>
+                <a  href="#" id="btn5">跳转
+         </a>
+                
+	  <table id="mytable">
+	  <style>
+        tr:nth-child(even) {
+	    background: #CCC
+        }
+       tr:nth-child(odd) {
+	    background-color: #FAFAFA;
+       }
+</style>
+				<thead>
+					<tr>
+						<th width="100">
+							用户名
+						</th>
+						<th width="100">
+							时间
+						</th>
+						<th width="300">
+							点评
+						</th>
+					</tr>
+				</thead>
+				<tbody id="comment_body">
+				<script>
+					var comment_body = document.getElementById("comment_body");
+					var url = "http://123.206.33.237:8080/Grandet/api/comment";
+					var params = {
+						'productId': getProductId(),
+						'page': 1
+					};
+					$.get(url,params, function(data, status) {
+						//alert(JSON.stringify(data));
+						var html = "";
+						var username,date,detail,i;
+						for ( i = data["list"].length - 1; i >= 0; i--) {
+							username = data["list"][i]["user"]["username"];
+							date = data["list"][i]["date"];
+							detail = data["list"][i]["detail"];
+							html = html + "<tr><td>"+username+"</td><td>"+date+"</td><td>"+detail+"</td></tr>";
+					        comment_body.innerHTML = html;
+						}
+						
+					});
+
+					
+				</script>
+					
+				</tbody>
+			</table>
+			
+			<h4>
+				添加我的评论
+			</h4>
+		
+				<div>
+				<script>
+				function postComment(){
+					var userId = getUserID();
+					var productId;
+					var detail = document.getElementById("user_comment").value;
+					var url = "http://123.206.33.237:8080/Grandet/api/comment";
+					var params = {
+						'userId': userId,
+						'productId': getProductId,
+                         'detail':detail
+					};
+					$.post(url,params,function(data,status){
+						alert(JSON.stringify(data));
+					});
+
+				}
+					
+				</script>
+
+                   <textarea id="user_comment" rows="3" cols="55" placeholder=" "></textarea>
+                   <button align="center" onclick="postComment()">提交</button>
+                
+
+				</div>
+				
+				
+			
+	  </div>
+</div>
+</div>
+</body>
+</html>

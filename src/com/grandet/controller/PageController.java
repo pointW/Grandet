@@ -38,4 +38,9 @@ public class PageController {
         return "Register";
     }
 
+    @RequestMapping(value = "/product")
+    public String product(){
+        return "product";
+    }
+
 }
