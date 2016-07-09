@@ -92,5 +92,6 @@
     <mvc:resources mapping="css/**" location="pages/css/" />
     <mvc:resources mapping="js/**" location="pages/js/" />
     <mvc:resources mapping="fonts/**" location="pages/fonts/" />
+    <mvc:resources mapping="images/**" location="pages/images/" />
 
 </beans>

@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class PageController {
 
-    @RequestMapping(value = "/search")
-    public String searchProduct(HttpServletRequest request, RedirectAttributes attr){
-        String keyword = request.getParameter("keyword");
-        attr.addAttribute("keyword", keyword);
-        return "pages/search.html";
-    }
+//    @RequestMapping(value = "/search")
+//    public String searchProduct(HttpServletRequest request, RedirectAttributes attr){
+//        String keyword = request.getParameter("keyword");
+//        attr.addAttribute("keyword", keyword);
+//        return "pages/search.html";
+//    }
 
     @RequestMapping(value = "/home")
     public String home(HttpServletRequest request, HttpServletResponse response){
@@ -41,6 +41,16 @@ public class PageController {
     @RequestMapping(value = "/product")
     public String product(){
         return "product";
+    }
+
+    @RequestMapping(value = "/search")
+    public String search(){
+        return "search";
+    }
+
+    @RequestMapping(value = "/login")
+    public String login(){
+        return "login";
     }
 
 }

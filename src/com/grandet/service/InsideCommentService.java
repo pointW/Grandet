@@ -25,6 +25,7 @@ public class InsideCommentService {
         return sqlSession.selectList("getInsideCommentByProductId", map);
     }
 
+
     public InsideComment getInsideComment(int id){
         return sqlSession.selectOne("getInsideComment", id);
     }

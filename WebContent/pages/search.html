@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>SearchPage</title>
+
+	<!-- CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="css/simple-line-icons.css" rel="stylesheet" media="screen">
+	<link href="css/animate.css" rel="stylesheet">
+    
+	<!-- Custom styles CSS -->
+	<link href="css/style.css" rel="stylesheet" media="screen">
+    
+    <script src="js/modernizr.custom.js"></script>
+
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+
+	<script>
+
+  function get_page_number(){
+    var params = window.location.href.split("?")[1];
+    var page_num = params.split("&")[1].split("=")[1];
+    return page_num;
+  }
+
+  function get_keyword() {
+    var params = window.location.href.split("?")[1];
+    var keyword = params.split("&")[0].split("=")[1];
+    return keyword;
+  }
+
+  function user_manage() {
+    var tag = document.getElementById("user_manage");
+    tag.innerHTML = "<li><a href=\"http://123.206.33.237:8080/Grandet/login\">登录</a></li>"+
+          "<li><a href=\"http://123.206.33.237:8080/Grandet/register\">注册</a></li>"+
+          "<li><a href=\"http://123.206.33.237:8080/Grandet/collection\">收藏</a></li>"
+  }
+
+  function init_page() {
+    user_manage()
+    result_load(get_keyword(), get_page_number());
+  }
+
+	function search_btn_clicked(){
+
+            var input_text = document.getElementById('search_content').value;
+            if (input_text == "") {
+              alert("search content must be a string");
+              return ;
+            }
+
+            window.location.href = window.location.href.split("?")[0] + "?keyword="+input_text+"&page=1";
+
+    	}
+
+    	function pg_fw_clicked(){
+    		var page_num = Number(get_page_number()) + 1;
+        window.location.href = window.location.href.split("&")[0] + "&page=" + page_num;
+    	}
+
+    	function pg_bk_clicked(){
+    		var page_num = Number(get_page_number()) - 1;
+        if (page_num === 0) {
+          alert("already first page");
+          return ;
+        }
+        window.location.href = window.location.href.split("&")[0] + "&page=" + page_num;
+    	}
+
+   //显示搜索结果
+   function result_load(keyword, page_num){
+
+   	$.get("http://123.206.33.237:8080/Grandet/api/product?keyword="+keyword+"&page="+page_num,function(data,status){
+
+      if (data["msg"] !== "success") {
+        return ;
+      }
+
+      var i = 0;
+      var html = "";
+      var item_list = data["list"];
+      for (i = 0; i < item_list.length; i++){
+        if (i % 3 === 0){
+          html = html + "<div class=\"row\">";
+        }
+        var next_url = "http://123.206.33.237:8080/Grandet/product?productId=" + item_list[i]["id"];
+        html = html + " <div class=\"col-xs-12 col-sm-4 col-md-4\"><div class=\"tile\"><img src=\"" + item_list[i]["pic"]+"\"/>"+
+              "<h3><span>"+item_list[i]["name"] + "</span></h3><p><span>"+item_list[i]["type"]["name"]+"</span></p>"+
+              "<a class=\"btn btn-primary btn-large btn-block\" href=\""+next_url+"\">Get Pro</a></div></div>";
+
+        if (i % 3 === 2) {
+          html = html + "</div>";
+        }
+      }
+
+      var body_tag = document.getElementById('list_body');
+      body_tag.innerHTML = html;
+
+
+   	})
+
+    
+   }
+
+		
+
+
+
+	</script>
+       
+</head>
+<body onload="init_page()">
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://123.206.33.237:8080/Grandet/home">
+        <img src="img/logo2.png" width="40" height="40">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <div class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" placeholder="Search" id="search_content">
+        </div>
+        <button class="btn btn-default" onclick="search_btn_clicked()">搜索</button>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right" id="user_manage">
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+	<section id="portfolio" class="pfblock">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 col-sm-offset-3">
+
+					<div class="pfblock-header wow fadeInUp">
+						<h2 class="pfblock-title">给您精确的商品数据</h2>
+						<div class="pfblock-line"></div>
+						
+					</div>
+
+				</div>
+
+			</div><!-- .row -->
+            
+            
+            <div class="row" id="list_body">
+                
+                
+            </div>
+
+
+		</div><!-- .contaier -->
+
+	</section>
+
+    
+    <!-- Skills end -->
+
+	<!-- CallToAction start -->
+
+	<section class="calltoaction">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-12 col-lg-12">
+					<h2 class="wow slideInRight" data-wow-delay=".1s">查看更多?</h2>
+					<div class="calltoaction-decription wow slideInRight" data-wow-delay=".2s">
+						
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-12 " data-wow-delay=".3s">
+					<a class="btn btn-lg" onclick="pg_bk_clicked()">上一页</a>
+				</div>
+
+				<div class="col-md-12 col-lg-12 " data-wow-delay=".3s">
+					<a  class="btn btn-lg" onclick="pg_fw_clicked()">下一页</a>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section>
+
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.parallax-1.1.3.js"></script>
+	<script src="js/imagesloaded.pkgd.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/wow.min.js"></script>
+    <script src="js/jquery.easypiechart.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.cbpQTRotator.js"></script>
+	<script src="js/custom.js"></script>
+
+</body>
+</html>
