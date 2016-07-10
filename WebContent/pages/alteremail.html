@@ -56,6 +56,10 @@ function init_page() {
 		 function alteremail() {
                  var email = document.getElementById("email_input").value;  
                  var email_confirm = document.getElementById("email_confirm").value;
+                 if (email === "" || email_confirm === ""){
+                  alert("请输入邮箱!");
+                  return;
+                 }
                  if (email_confirm !== email){
                   alert("两次的输入内容不同");
                   return;
