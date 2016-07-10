@@ -2,6 +2,7 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
 <head>
+
 	<title>Create Account</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -11,41 +12,143 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
 	<link href="css/templatemo_style.css" rel="stylesheet" type="text/css">	
+
+	 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/simple-line-icons.css" rel="stylesheet" media="screen">
+    <link href="css/animate.css" rel="stylesheet">
+    
+    <!-- Custom styles CSS -->
+    <link href="css/style.css" rel="stylesheet" media="screen">
+    
+    <script src="js/modernizr.custom.js"></script>
+
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <script type="text/javascript">
+    	
+    	function search_btn_clicked() {
+
+			var input_text = document.getElementById('search_content').value;
+
+			window.location.href = "http://123.206.33.237:8080/Grandet/search?keyword="+input_text+"&page=1";
+			
+		}
+
+    	
+
+    </script>
+
+
 </head>
 <body class="templatemo-bg-gray">
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://123.206.33.237:8080/Grandet/home">
+      <div>
+        <img src="img/logo2.png" width="40" height="40">
+        <span><h>Grandet</h></span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <div class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" placeholder="Search" id="search_content">
+        </div>
+        <button class="btn btn-default" onclick="search_btn_clicked()">搜索</button>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right" id="user_manage">
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+	<script>
+		function register(){
+			var username = document.getElementById('username').value;
+			var password = document.getElementById('password').value;
+			var password_confirm = document.getElementById('password_confirm').value;
+			if (password !== password_confirm){
+				alert("两次输入的密码不同");
+
+				return;
+			}
+
+			var email = document.getElementById('email').value;
+			if(username===""||password===""||email===""){
+				alert("输入有误");
+				return;
+			}
+
+			var params = {
+				"username": username,
+				"password": password,
+				"email": email
+			}
+			$.post("http://123.206.33.237:8080/Grandet/api/user", params, function(data, status){
+				var result = data["msg"];
+				if (result === "success"){
+					alert("注册成功");					
+					window.location.href = "http://123.206.33.237:8080/Grandet/";
+				}
+				else if (result === "existed"){
+					alert("用户名已存在");
+				}
+				else {
+					alert("出错啦！");
+				}
+			});
+		}
+	</script>
 	<h1 class="margin-bottom-15">用户注册</h1>
 	<div class="container">
-		<div class="col-md-12">			
-			<form action="http://123.206.33.237:8080/Grandet/api/user
-" class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post">		
+		<div class="col-md-12">					
 			        <div class="form-group">
 			          <div class="col-md-6">		          	
 			            <label for="username" class="control-label">用户名Username</label>
-			            <input type="text" name="username" class="form-control"  placeholder="">	
+			            <input type="text" id="username" class="form-control"  placeholder="">	
                         </div>
                         
                         <div class="col-md-6">
 			            <label for="email" class="control-label">常用邮箱Email</label>
-			            <input type="email" class="form-control" name="email" placeholder="">
+			            <input type="text" id="email" class="form-control"  placeholder="">
 			          </div>	            		            		            
 			        
 			          <div class="col-md-6">
 			            <label for="password" class="control-label">密码Password</label>
-			            <input type="password" class="form-control" name="password" placeholder="">
+			            <input type="password" id="password" class="form-control"  placeholder="">
 			          </div>
                       
 			          <div class="col-md-6">
 			            <label for="password" class="control-label">确认密码Confirm Password</label>
-			            <input type="password" class="form-control" id="password_confirm" placeholder="">
-			          </div>
-			        
-			          <div class="col-md-12">
-			            <label><input type="checkbox">I agree to the <a href="javascript:;" data-toggle="modal" data-target="#templatemo_modal">Terms of Service</a> and <a href="#">Privacy Policy.</a></label>
+			            <input type="password" id="password_confirm" class="form-control"  placeholder="">
 			          </div>
                       
-			       
 			          <div class="col-md-12">   
-                      <div style="width:100%;height:40px;text-align:center">    <input type="submit" value="Login" >                   
+                      <div style="width:100%;height:40px;text-align:center">    
+                      <input type="submit" value="注册" onclick="register()" >                   
                           
                        </div>
                        
@@ -54,7 +157,6 @@
 			          </div>
                     
 				</div>				    	
-		      </form>		      
 		</div>
 	</div>
 	<!-- Modal -->
@@ -75,5 +177,33 @@
 	</div>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	  <footer id="footer">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-12">
+
+          <ul class="social-links">
+            <li><a href="index.html#" class="wow fadeInUp"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".1s"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".2s"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".5s"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+
+          <p class="heart">
+                        Made with <span class="fa fa-heart fa-2x animated pulse"></span> in Chengdu
+                    </p>
+                    <p class="copyright">
+                        © 2016 Grandet |  WQ&MXX&WD&HWD&CQC&ZK
+          </p>
+
+        </div>
+
+      </div><!-- .row -->
+    </div><!-- .container -->
+  </footer>
+
 </body>
 </html>

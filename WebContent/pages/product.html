@@ -4,32 +4,45 @@
 <html>
 <head>
 
-	<meta charset="utf-8">
-	<title></title>
-	  <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
 
-    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <title>商品详情</title>
 
-    <!-- Loading Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/simple-line-icons.css" rel="stylesheet" media="screen">
+    <link href="css/animate.css" rel="stylesheet">
+    
+    <!-- Custom styles CSS -->
+    <link href="css/style.css" rel="stylesheet" media="screen">
+    
+    <script src="js/modernizr.custom.js"></script>
 
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
-    <link href="css/demo.css" rel="stylesheet">
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-	<script src="http://cdn.bootcss.com/echarts/3.2.0/echarts.min.js"></script>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <script src="http://cdn.bootcss.com/echarts/3.2.0/echarts.min.js"></script>
 
-<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+
+
 	<script>
       function user_manage() {
     var tag = document.getElementById("user_manage");
@@ -98,6 +111,31 @@
 			}
 		}
 	}
+
+        function AddCollection(){
+            var url = "http://123.206.33.237:8080/Grandet/api/collection"
+            var userId = getUserID();
+            var productId = getProductId();
+            var params = {
+                        'userId': userId,
+                        'productId': productId,
+                    };
+            $.post(url,params,function(data,status){
+                var result = data["msg"];
+                if (result === "success"){
+                    alert("添加收藏成功");
+                }
+                else if (result === "no login"){
+                    alert("请您先登录");
+                }
+                else if (result === "existed"){
+                    alert("您之前已经收藏过此商品");
+                }
+                else{
+                    alert("出错啦:"+result);
+                }
+            });
+        }
 
 
 		function item_history() {
@@ -190,7 +228,6 @@
                         }
 
                         </script>
-<title>商品详情</title>
 </head>
 
 <body onload="on_init()" >
@@ -207,7 +244,11 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="http://123.206.33.237:8080/Grandet/home">
-        <img src="img/u24.png" width="40" height="30">
+       <div>
+        <img src="img/logo2.png" width="40" height="30">
+        <span><h>Grandet</h></span>
+
+        </div>
       </a>
     </div>
 
@@ -229,23 +270,28 @@
    <div class = "col-md-12 column">
 			  <div class="col-md-6 column" >
 			       
-                 <h3>         
-                <span class="label label-primary">商品详情</span>
-                </h3>
+                 <h2>         
+                <span class="btn btn-primary">商品详情</span>
+                </h2>
 			    <h5 align="center" id="item_name"></h5>
 				<p align="center">
 					<img id="item_img" src="" alt="" name="goodimg" width="300" height="300"/>
+                    
+                    <button class="btn btn-embossed btn-primary" onclick="AddCollection()">收藏</button>
+                    
 				</p>
+                
 			  </div>
 
                <div class="col-md-6 column">
-                    <h3>
-                        <span class="label label-primary">历史价格</span>
-                    </h3>
+                    <h2>
+                        <span class="btn btn-default">历史价格</span>
+                    </h2>
                         <div id="main" style="width: 600px;height:400px;"></div>
                         
 
               </div>
+              
         </div>
     </div>
 
@@ -255,10 +301,10 @@
              
 	<div class="row clearfix container">
 	  <div class="col-md-12 column">
-		<h3>
+		<h2>
 		       
-				<span class="label label-primary">商城价格比较</span>
-		</h3>
+				<span class="btn btn-primary">商城价格比较</span>
+		</h2>
 			
 			<table class="table">
 				<thead>
@@ -314,10 +360,10 @@
 
 	<div class="row clearfix container">
 		<div class="col-md-12 column">
-			<h3>
+			<h2>
 			    
-				<span class="label label-primary">评价分析</span>
-			</h3>
+				<span class="btn btn-primary">评价分析</span>
+			</h2>
 			<div id="analysis" style="width: 600px;height:400px;"></div>
 			<script >
 			function Count(goodCount,badCount){
@@ -401,11 +447,11 @@ option = {
 
 <div class="row clearfix container">
   <div class="col-md-12 column">
-	<h3>
+	<h2>
 				
-				<span class="label label-primary">优秀评价汇总</span>
+				<span class="btn btn-primary">优秀评价汇总</span>
 		
-  </h3>
+  </h2>
 		<table id="goodcomment" class="table table-bordered">
           
 		  <tr>
@@ -435,9 +481,9 @@ option = {
 	</div>
 	<div class="row clearfix container">
 		<div class="col-md-12 column">
-		<h3>   
-		     <span class="label label-primary">葛朗台点评</span>
-		</h3>
+		<h2>   
+		     <span class="btn btn-primary">葛朗台点评</span>
+		</h2>
 		          
                 <a  >当前第</a>
                 <a  id="sjzl"></a>
@@ -531,12 +577,17 @@ option = {
                         'detail':detail
 					};
 					$.post(url,params,function(data,status){
-						if (data["msg"] === "success"){
-							alert("评论成功")
-						}
-						else{
-							alert(JSON.stringify(data));
-						}
+						var result = data["msg"];
+                        if (result === "success"){
+                            alert("添加评论成功");
+                            window.location.reload(true);
+                        }
+                        else if (result === "no login"){
+                            alert("请您先登录");
+                        }
+                        else{
+                            alert("出错啦:"+result);
+                        }
 					});
 
 				}
@@ -556,5 +607,31 @@ option = {
 	  </div>
 </div>
 </div>
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-12">
+
+          <ul class="social-links">
+            <li><a href="index.html#" class="wow fadeInUp"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".1s"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".2s"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".5s"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+
+          <p class="heart">
+                        Made with <span class="fa fa-heart fa-2x animated pulse"></span> in Chengdu
+                    </p>
+                    <p class="copyright">
+                        © 2016 Grandet |  WQ&MXX&WD&HWD&CQC&ZK
+          </p>
+
+        </div>
+
+      </div><!-- .row -->
+    </div><!-- .container -->
+  </footer>
 </body>
 </html>

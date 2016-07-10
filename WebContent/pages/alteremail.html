@@ -20,7 +20,16 @@
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script>
 
+  function checkLogin(){
+          var userId = getUserID();
+          if (userId === undefined){
+            alert("您还未登录");
+            window.history.back(-1);
+          }
+        }
+
 function init_page() {
+  checkLogin();
             user_manage();
         }
     
@@ -46,13 +55,24 @@ function init_page() {
 		
 		 function alteremail() {
                  var email = document.getElementById("email_input").value;  
+                 var email_confirm = document.getElementById("email_confirm").value;
+                 if (email_confirm !== email){
+                  alert("两次的输入内容不同");
+                  return;
+                 }
                  var url = "http://123.206.33.237:8080/Grandet/api/user/alter/"+getUserID();
 
                  var params = {
                       "email": email
                                 };
                   $.post(url, params, function(data, status) {
-                alter(JSON.stringify(data));
+                var msg = data["msg"];
+                    if (msg === "success"){
+                      window.location.href = "http://123.206.33.237:8080/Grandet/collection";
+                    }
+                    else {
+                      alert(msg);
+                    }
               });
                 }
                 

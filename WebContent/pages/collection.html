@@ -38,8 +38,17 @@
       
     }
         function init_page() {
+          checkLogin();
             user_manage();
             load_collections(1);
+        }
+
+        function checkLogin(){
+          var userId = getUserID();
+          if (userId === undefined){
+            alert("您还未登录");
+            window.history.back(-1);
+          }
         }
 		
 		

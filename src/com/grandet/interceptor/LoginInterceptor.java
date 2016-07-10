@@ -14,7 +14,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws Exception {
 
         //查看评论放行
-        if(request.getServletPath().startsWith("comment")&&"GET".equalsIgnoreCase(request.getMethod())) {
+        if(request.getServletPath().contains("comment")&&"GET".equalsIgnoreCase(request.getMethod())) {
             return true;
         }
 
