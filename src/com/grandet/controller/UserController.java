@@ -127,9 +127,9 @@ public class UserController {
         if (preUser==null){
             map.put("msg", "no result");
         }
-        else if (user.getUsername()!=null && preUser.getUsername()!=user.getUsername()){
-            map.put("msg", "bad username");
-        }
+//        else if (user.getUsername()!=null && preUser.getUsername()!=user.getUsername()){
+//            map.put("msg", "bad username");
+//        }
         else {
             if (user.getPassword() == null){
                 user.setPassword(preUser.getPassword());

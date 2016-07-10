@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<html>
+<head>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+
+    <title>商品详情</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/simple-line-icons.css" rel="stylesheet" media="screen">
+    <link href="css/animate.css" rel="stylesheet">
+    
+    <!-- Custom styles CSS -->
+    <link href="css/style.css" rel="stylesheet" media="screen">
+    
+    <script src="js/modernizr.custom.js"></script>
+
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    
+    <script src="http://cdn.bootcss.com/echarts/3.2.0/echarts.min.js"></script>
+
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+
+
+	<script>
+      function user_manage() {
+    var tag = document.getElementById("user_manage");
+    tag.innerHTML = "<li><a href=\"http://123.206.33.237:8080/Grandet/login\">登录</a></li>"+
+          "<li><a href=\"http://123.206.33.237:8080/Grandet/register\">注册</a></li>"+
+          "<li><a href=\"http://123.206.33.237:8080/Grandet/collection\">收藏</a></li>"
+  }
+
+		function on_init() {
+            loadcomment(getProductId(), 1);
+            user_manage();
+			item_history();
+			comment_count();
+			comment_key();
+			var url = "http://123.206.33.237:8080/Grandet/api/product/"+getProductId();
+			
+			$.get(url, function(data, status) {
+				// alert(data["object"]["pic"]);
+				var img_tag = document.getElementById('item_img');
+				img_tag.src = data["object"]["pic"];
+				//alert(JSON.stringify(data["object"]));
+				var item_name = document.getElementById("item_name");
+				item_name.innerHTML = data["object"]["name"];
+			});
+		}
+        
+        function comment_key(){
+             var url = "http://123.206.33.237:8000/summary/"+getProductId();
+             var description=new Array();
+             var wordcount=new Array();
+             var i;
+             $.get(url,function(data,status){
+                 for(i=0;i<data["tags"].length;i++){
+				description[i]=data["tags"][i]["description"];
+                wordcount[i]=data["tags"][i]["count"];
+                key(description,wordcount);
+            }
+             });
+        }
+
+		function comment_count(){
+			var url= "http://123.206.33.237:8000/summary/"+getProductId();
+			var goodCount,badCount;
+			$.get(url, function(data, status) {
+				goodCount = data["goodCount"];
+				badCount = data["badCount"];
+			    Count(goodCount,badCount);
+		});
+		}
+	
+        function getProductId(){
+        	var url = window.location.href;
+        	var arr = new Array();
+        	arr = url.split("?");
+            var productId = arr[1].split("=");
+           // alert(productId[1]);
+            return productId[1];
+        }
+
+        function getUserID(){
+			var s = document.cookie.split(";");
+			var i;
+			for (i=0;i<s.length;i++) {
+			 if (s[i].split("=")[0] === " userID" || s[i].split("=")[0] === "userID" ) {
+			 return s[i].split("=")[1]
+			}
+		}
+	}
+
+        function AddCollection(){
+            var url = "http://123.206.33.237:8080/Grandet/api/collection"
+            var userId = getUserID();
+            var productId = getProductId();
+            var params = {
+                        'userId': userId,
+                        'productId': productId,
+                    };
+            $.post(url,params,function(data,status){
+                var result = data["msg"];
+                if (result === "success"){
+                    alert("添加收藏成功");
+                }
+                else if (result === "no login"){
+                    alert("请您先登录");
+                }
+                else if (result === "existed"){
+                    alert("您之前已经收藏过此商品");
+                }
+                else{
+                    alert("出错啦:"+result);
+                }
+            });
+        }
+
+
+		function item_history() {
+			var url = "http://123.206.33.237:8080/Grandet/api/price/history?productId="+getProductId();
+			var item_date = new Array();
+			var item_price = new Array();
+			var i = 0 ;
+			$.get(url, function(data, status) {
+				for(i=0;i<data["list"].length;i++){
+    				item_date[i]=data["list"][i]["date"];
+    				item_date[i]= new Date(Number(item_date[i]));
+                    item_price[i]=data["list"][i]["price"];
+                    item_date[i] = String(item_date[i]).split("GMT")[0];
+                    var tmp = item_date[i].split(" ");
+                    item_date[i] = tmp[0] + " " + tmp[1] + " " + tmp[2] + " " +tmp[3];
+                }
+                item_pic(item_date,item_price);
+			});
+		}
+
+		
+		function search_btn_clicked() {
+
+			var input_text = document.getElementById('search_content').value;
+
+			window.location.href = "http://123.206.33.237:8080/Grandet/search?keyword="+input_text+"&page=1";
+			
+		}
+                                    function item_pic(item_date,item_price)
+                                    { 
+                                        //alert(item_date);
+
+                                    var myChart = echarts.init(document.getElementById('main'));
+
+                                    option = {
+                            title: {
+                                text: '历史价格',
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:['价格']
+                            },
+                            toolbox: {
+                                show: true,
+                                feature: {
+                                    dataZoom: {
+                                        yAxisIndex: 'none'
+                                    },
+                                    dataView: {readOnly: false},
+                                    magicType: {type: ['line', 'bar']},
+                                    restore: {},
+                                    saveAsImage: {}
+                                }
+                            },
+                            xAxis:  {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: item_date
+                            },
+                            yAxis: {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: '{value} 元'
+                                }
+                            },
+                            series: [
+                                {
+                                    name:'价格',
+                                    type:'line',
+                                    data: item_price,
+                                    markPoint: {
+                                        data: [
+                                            {type: 'max', name: '最大值'},
+                                            {type: 'min', name: '最小值'}
+                                        ]
+                                    },
+                                    markLine: {
+                                        data: [
+                                            {type: 'average', name: '平均值'}
+                                        ]
+                                    }
+                                }
+                            ]
+                        };
+
+                                            
+                         myChart.setOption(option);
+                        }
+
+                        </script>
+</head>
+
+<body onload="on_init()" >
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://123.206.33.237:8080/Grandet/home">
+       <div>
+        <img src="img/logo2.png" width="40" height="30">
+        <span><h>Grandet</h></span>
+
+        </div>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <div class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" placeholder="Search" id="search_content">
+        </div>
+        <button class="btn btn-default" onclick="search_btn_clicked()">搜索</button>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right" id="user_manage">
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+   <div class = "col-md-12 column">
+			  <div class="col-md-6 column" >
+			       
+                 <h2>         
+                <span class="btn btn-primary">商品详情</span>
+                </h2>
+			    <h5 align="center" id="item_name"></h5>
+				<p align="center">
+					<img id="item_img" src="" alt="" name="goodimg" width="300" height="300"/>
+                    
+                    <button class="btn btn-embossed btn-primary" onclick="AddCollection()">收藏</button>
+                    
+				</p>
+                
+			  </div>
+
+               <div class="col-md-6 column">
+                    <h2>
+                        <span class="btn btn-default">历史价格</span>
+                    </h2>
+                        <div id="main" style="width: 600px;height:400px;"></div>
+                        
+
+              </div>
+              
+        </div>
+    </div>
+
+
+
+	    
+             
+	<div class="row clearfix container">
+	  <div class="col-md-12 column">
+		<h2>
+		       
+				<span class="btn btn-primary">商城价格比较</span>
+		</h2>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="70">
+							网上商城
+						</th>
+						<th width="100">
+							商城logo
+						</th>
+						<th width="70">
+							商品名
+						</th>
+						<th width="70">
+							价格
+						</th>
+					</tr>
+				</thead>
+				<tbody id="table_body">
+					<script>
+					var table_body = document.getElementById("table_body");
+					var url = "http://123.206.33.237:8080/Grandet/api/price";
+					var params = {
+						'productId': getProductId()
+					};
+					$.get(url,params, function(data, status) {
+						//alert(JSON.stringify(data));
+						var html = "";
+						var html1 = "<img src="
+						var html2 = "alt=\"\", height=\"50\" width=\"100\"/>"
+						var html3 = "<a href="
+						var html4 = "</a>"
+						var website_name,logo,price,item_url;
+						for (i=0;i <data["list"].length; i++) {
+							website_name = data["list"][i]["website"]["name"];
+							logo = data["list"][i]["website"]["pic"];
+							product_name =  data["list"][i]["product"]["name"];
+							price = data["list"][i]["number"];
+                            item_url = data["list"][i]["url"];
+							html = html + "<tr><td>"+website_name+"</td><td>"+html1+"\""+logo+"\""+html2
+							+"</td><td>"+html3+"\""+item_url+"\">"+product_name+html4+"</td><td>"+price+"</td></tr>";
+					        table_body.innerHTML = html;
+						}	
+
+					});
+	
+				</script>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row clearfix container">
+		<div class="col-md-12 column">
+			<h2>
+			    
+				<span class="btn btn-primary">评价分析</span>
+			</h2>
+			<div id="analysis" style="width: 600px;height:400px;"></div>
+			<script >
+			function Count(goodCount,badCount){
+			var myChart = echarts.init(document.getElementById('analysis'));
+			option = {
+    title : {
+        text: '评论分析',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['好评','差评']
+    },
+    series : [
+        {
+            name: '评论数',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:goodCount, name:'好评',itemStyle: {
+             normal: {
+            color: '#EE6A50'
+        }
+    }},
+                {value:badCount, name:'差评',itemStyle: {
+             normal: {
+            color: '#FFD700'
+        }
+    }},
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+      myChart.setOption(option);
+}
+</script>
+<div id="analysis_key" style="width: 1000px;height:400px;"></div>
+<script>
+function key(description,wordcount){
+			var myChart = echarts.init(document.getElementById('analysis_key'));
+option = {
+    tooltip: {},
+    legend: {
+        data:['评价关键词']
+    },
+    itemStyle: {
+    normal: {
+
+        color: '#4876FF',
+    }
+    },
+    xAxis: {
+        data: description
+    },
+    yAxis: {},
+    series: [{
+        name: '评价关键词',
+        type: 'bar',
+
+        data: wordcount
+    }]
+};
+ myChart.setOption(option);
+}
+</script>
+</div>
+</div>
+
+<div class="row clearfix container">
+  <div class="col-md-12 column">
+	<h2>
+				
+				<span class="btn btn-primary">优秀评价汇总</span>
+		
+  </h2>
+		<table id="goodcomment" class="table table-bordered">
+          
+		  <tr>
+		    <td >时间</td>
+		    <td >评价</td>
+	      </tr>
+	      <script>
+					var goodcomment = document.getElementById("goodcomment");
+					var url = "http://123.206.33.237:8000/comments/"+getProductId();
+					$.get(url,function(data, status){
+						var html = "";
+						var comment_date,comment_content,i;
+						for ( i = data.length - 1; i >= 0; i--) {
+							comment_date = data[i]["date"];
+							comment_content = data[i]["content"];
+							html = html + "<tr><td>"+comment_date+"</td><td>"+comment_content;
+					        goodcomment.innerHTML = html;
+						}
+						
+					});
+
+					
+				</script>
+		  
+	    </table>
+      </div>
+	</div>
+	<div class="row clearfix container">
+		<div class="col-md-12 column">
+		<h2>   
+		     <span class="btn btn-primary">葛朗台点评</span>
+		</h2>
+		          
+                <a  >当前第</a>
+                <a  id="sjzl"></a>
+                <a  > 页</a>
+                <a   onclick="lastpage()">上一页</a>
+                <a   onclick="nextpage()">下一页</a>
+
+                <script>
+                    
+                    function lastpage() {
+                        var currentpage = document.getElementById("sjzl").innerHTML;
+                        if (Number(currentpage) === 1) {
+                            alert("already first page");
+                        } else {
+                            var page = Number(currentpage) - 1;
+                            loadcomment(getProductId(), page);
+                        }
+                    }
+
+                    function nextpage() {
+                        var currentpage = document.getElementById("sjzl").innerHTML;
+                        loadcomment(getProductId(), Number(currentpage) + 1);
+                    }
+                </script>
+         </a>
+             
+
+	  <table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="100">
+							用户名
+						</th>
+						<th width="100">
+							时间
+						</th>
+						<th width="300">
+							点评
+						</th>
+					</tr>
+				</thead>
+				<tbody id="comment_body">
+				<script>
+                    function loadcomment(productId, page) {
+                        var comment_body = document.getElementById("comment_body");
+                    var url = "http://123.206.33.237:8080/Grandet/api/comment";
+                    var tmp = new Array();
+                    var params = {
+                        'productId': getProductId(),
+                        'page': page
+                    };
+                    $.get(url,params, function(data, status) {
+                        document.getElementById("sjzl").innerHTML = page;
+                        //alert(JSON.stringify(data));
+                        var html = "";
+                        var username,date,detail,i;
+                        for ( i = data["list"].length - 1; i >= 0; i--) {
+                            username = data["list"][i]["user"]["username"];
+                            //date = data["list"][i]["date"];
+                            date=Date(Number(data["list"][i]["date"]));
+                            tmp = date.split("GMT");
+                            date =tmp[0].split(" ");
+                            detail = data["list"][i]["detail"];
+                            html = html + "<tr><td>"+username+"</td><td>"+date[0] +" " + date[1] +" "+ date[2] +" " + date[3] +"</td><td>"+detail+"</td></tr>";
+                            comment_body.innerHTML = html;
+                        }
+                        
+                    });
+                    }
+
+					
+				</script>
+					
+				</tbody>
+			</table>
+			
+			<h4>
+				添加我的评论
+			</h4>
+		
+				<div>
+				<script>
+				function postComment(){
+					var userId = getUserID();
+					var productId;
+					var detail = document.getElementById("user_comment").value;
+                    if (detail===""){
+                        alert("请输入您的评论!");
+                        return;
+                    }
+					var url = "http://123.206.33.237:8080/Grandet/api/comment";
+					var params = {
+						'userId': userId,
+						'productId': getProductId,
+                        'detail':detail
+					};
+					$.post(url,params,function(data,status){
+						var result = data["msg"];
+                        if (result === "success"){
+                            alert("添加评论成功");
+                            var text="";
+                            document.getElementById("user_comment").value=text;
+                            loadcomment(getProductId(), 1);
+                        }
+                        else if (result === "no login"){
+                            alert("请您先登录");
+                        }
+                        else{
+                            alert("出错啦:"+result);
+                        }
+					});
+
+				}
+					
+				</script>
+
+                   <textarea id="user_comment" rows="3" cols="55" placeholder="please leave some comment"></textarea>
+                   <br>
+                   <button class="btn btn-embossed btn-primary" onclick="postComment()">
+                    提交
+                  </button>
+
+				</div>
+				
+				
+			
+	  </div>
+</div>
+</div>
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-12">
+
+          <ul class="social-links">
+            <li><a href="index.html#" class="wow fadeInUp"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".1s"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".2s"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a></li>
+            <li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".5s"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+
+          <p class="heart">
+                        Made with <span class="fa fa-heart fa-2x animated pulse"></span> in Chengdu
+                    </p>
+                    <p class="copyright">
+                        © 2016 Grandet |  WQ&MXX&WD&HWD&CQC&ZK
+          </p>
+
+        </div>
+
+      </div><!-- .row -->
+    </div><!-- .container -->
+  </footer>
+</body>
+</html>

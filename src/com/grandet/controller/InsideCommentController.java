@@ -53,13 +53,17 @@ public class InsideCommentController {
     @RequestMapping(value = "/api/comment", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addComment(InsideComment insideComment, HttpServletRequest request){
-        insideComment.setDate(new Date(System.currentTimeMillis()));
         Map<String, Object> map = new HashMap<>();
-//        User user = (User)request.getSession().getAttribute("currentUser");
-//        if (user.getId() != insideComment.getUserId()){
-//            map.put("msg", "not match");
-//            return map;
-//        }
+        if (insideComment.getUserId() == 0 || insideComment.getProductId() == 0 || insideComment.getDetail() == null){
+            map.put("msg", "bad request");
+            return map;
+        }
+        insideComment.setDate(new Date(System.currentTimeMillis()));
+        User user = (User)request.getSession().getAttribute("currentUser");
+        if (user.getId() != insideComment.getUserId()){
+            map.put("msg", "not match");
+            return map;
+        }
         int result = insideCommentService.addInsideComment(insideComment);
         if (result == 1){
             map.put("msg", "success");
@@ -79,11 +83,11 @@ public class InsideCommentController {
             map.put("msg", "not exist");
             return map;
         }
-//        User user = (User)request.getSession().getAttribute("currentUser");
-//        if (user.getId() != insideComment.getUserId()){
-//            map.put("msg", "not match");
-//            return map;
-//        }
+        User user = (User)request.getSession().getAttribute("currentUser");
+        if (user.getId() != insideComment.getUserId()){
+            map.put("msg", "not match");
+            return map;
+        }
         int result = insideCommentService.deleteInsideComment(id);
         if (result == 1){
             map.put("msg", "success");

@@ -55,6 +55,10 @@ public class CollectionController {
     public @ResponseBody
     Map<String, String> addCollection(Collection collection, HttpServletRequest request){
         Map<String, String > map = new HashMap<String, String>();
+        if (collection.getUserId() == 0 || collection.getProductId() == 0){
+            map.put("msg", "bad request");
+            return map;
+        }
 //        User user = (User)request.getSession().getAttribute("currentUser");
 //        if (user.getId()!=collection.getUserId()){
 //            map.put("msg", "not match");

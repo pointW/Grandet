@@ -75,6 +75,11 @@
         <!--</property>-->
     <!--</bean>-->
 
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"></property>
+        <property name="suffix" value=".html"></property>
+    </bean>
+
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/api/comment"/>
@@ -82,5 +87,11 @@
             <bean class="com.grandet.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
+    
+    <mvc:resources mapping="img/**" location="pages/img/" />
+    <mvc:resources mapping="css/**" location="pages/css/" />
+    <mvc:resources mapping="js/**" location="pages/js/" />
+    <mvc:resources mapping="fonts/**" location="pages/fonts/" />
+    <mvc:resources mapping="images/**" location="pages/images/" />
 
 </beans>
